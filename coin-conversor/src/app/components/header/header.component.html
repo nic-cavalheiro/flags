@@ -1,0 +1,12 @@
+<header>
+    <div>
+      <button (click)="goHome()" class="home-button">
+        <img src="assets/home.png" alt="homeimg" class="home-icon"/>
+      </button>
+    </div>
+    <div>
+      <button class="theme-toggle" (click)="toggleTheme()">
+        <img src="{{isDarkTheme ? 'assets/switch.png' : 'assets/switch2.png'}}" alt="button icon" class="icon"/>
+      </button> 
+    </div>
+  </header>

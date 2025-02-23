@@ -1,0 +1,56 @@
+.flag-container {
+  width: 150px; /* Largura fixa para todos os cartões */
+  height: 90px; /* Altura fixa para todos os cartões */
+  border: 2px solid #4d4a4a; /* Borda do cartão */
+  border-radius: 8px; /* Bordas arredondadas */
+  overflow: hidden; /* Oculta qualquer parte da imagem que excede o contêiner */
+  display: flex; /* Flexbox para organizar o conteúdo */
+  flex-direction: column; /* Organiza os elementos em coluna */
+  align-items: center; /* Centraliza horizontalmente */
+  justify-content: center; /* Centraliza verticalmente */
+  background-color: #fff; /* Cor de fundo do cartão */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.9); /* Sombra para dar efeito de profundidade */
+  transition: transform 0.2s, box-shadow 0.2s; // Animações suaves  margin: 10px;
+  margin: 20px;
+  padding: 0px; 
+  cursor: pointer; 
+  
+  &:hover {
+    transform: translateY(-5px); /* Efeito de hover para elevar o cartão */
+  }
+
+  &.expanded {
+    background-color: #f0f0f0; /* Cor de fundo ao expandir */
+    border-color: #888; /* Cor da borda ao expandir */
+  }
+}
+
+.flag-image {
+  width: 120%; 
+  height: fit-content; 
+  max-height: 100%; 
+  object-fit: cover; 
+}
+
+.flag-name {
+  margin-top: 10px; 
+  font-weight: bold;
+  text-align: center; 
+  color: #333; 
+}
+
+.flag-name-dark {
+  margin-top: 10px; 
+  font-weight: bold;
+  text-align: center; 
+  color: #ffffff;
+}
+
+.flag-details {
+  margin-top: 8px;
+  font-size: 14px;
+  width: 300px;
+  height: 300px;
+  background-color: #000000; /* Cor de fundo ao expandir */
+  border-color: #888; /* Cor da borda ao expandir */
+}

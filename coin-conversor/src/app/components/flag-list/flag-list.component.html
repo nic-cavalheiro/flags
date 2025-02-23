@@ -1,0 +1,45 @@
+<div class="flag-list">
+  <div *ngFor="let flag of flags; let i = index">
+    <app-flag-item 
+      [flag]="flag" 
+      [isExpanded]="expandedFlagIndex === i"
+      [isDarkTheme]="isDarkTheme"
+      (flagClicked)="onFlagClicked(flag)">
+    </app-flag-item>
+  </div>
+
+  <!-- Modal para exibir detalhes -->
+  <app-modal *ngIf="isModalOpen" (closed)="closeModal()" title="Informações da Bandeira">
+    <h3>{{ selectedFlag?.name }}</h3>
+    <img [src]="selectedFlag?.imageUrl" [alt]="selectedFlag?.name" />
+    
+    <div *ngIf="countryInfo">
+      <h4>Informações sobre {{ selectedFlag?.name }}:</h4>
+      <p *ngIf="countryInfo.extract">{{ countryInfo.extract }}</p>
+      <!-- Exibir outras informações da Wikipédia, como população, capital, etc. -->
+      <p><strong>Capital:</strong> {{ countryInfo.capital }}</p>
+      <p><strong>População:</strong> {{ countryInfo.population }}</p>
+      <p><strong>Área:</strong> {{ countryInfo.area }} km²</p>
+    </div>
+
+    <p *ngIf="!countryInfo">Carregando informações...</p>
+  </app-modal>
+</div>
+<!-- <div class="flag-list">
+  <div *ngFor="let flag of flags; let i = index">
+    <app-flag-item 
+      [flag]="flag" 
+      [isExpanded]="expandedFlagIndex === i"
+      [isDarkTheme]="isDarkTheme"
+      (flagClicked)="onFlagClicked(flag)">
+    </app-flag-item>
+  
+  <app-modal *ngIf="isModalOpen" (closed)="closeModal()" title="Informações da Bandeira">
+    <h3>{{ selectedFlag?.name }}</h3>
+    <img [src]="selectedFlag?.imageUrl" [alt]="selectedFlag?.name" />
+    <p>Mais informações sobre a bandeira...</p>
+  </app-modal>
+</div> -->
+
+
+

@@ -9,7 +9,7 @@ import java.net.URI;
 public class WikipediaService {
 
     private final RestTemplate restTemplate;
-    private static final String WIKIPEDIA_API_URL = "https://en.wikipedia.org/api/rest_v1/page/summary/";
+    private static final String WIKIPEDIA_API_URL = "https://pt.wikipedia.org/api/rest_v1/page/parse/";
 
     public WikipediaService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;

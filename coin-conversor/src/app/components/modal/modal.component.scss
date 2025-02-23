@@ -1,0 +1,53 @@
+/* modal.component.scss */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    //background: rgba(112, 37, 37, 0.5);
+    background:transparent;/* Semi-transparent background */
+
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #4b2e2e;
+    padding: 1rem;
+    border-radius: 5px;
+    z-index: 1001;
+    width: 40%;
+    box-shadow: 0 4px 8px rgba(78, 78, 78, 0.4);
+    animation: fadeIn 0.3s; /* Adiciona uma animação de entrada */
+  }
+  
+  .modal-body img {
+    max-width: 0%; /* A imagem não deve ultrapassar a largura do modal */
+    max-height: 200%; /* Defina uma altura máxima para a imagem */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Garante que a imagem seja tratada como um bloco */
+    margin: 0 auto; /* Centraliza a imagem dentro do modal */
+  }
+
+  .close-button {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
