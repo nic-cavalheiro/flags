@@ -46,10 +46,14 @@ export class FlagListComponent implements OnInit {
     }
   }
 
-  closeModal() {
+  onModalClose() {
+    console.log('Modal fechado');
     this.selectedFlag = null;
     this.isModalOpen = false;
-    this.countryInfo = null; // Limpar informações quando o modal for fechado
+  }
+
+  closeModal() {
+    this.onModalClose(); // Chama o método onModalClose
   }
 
   fetchFlags() {

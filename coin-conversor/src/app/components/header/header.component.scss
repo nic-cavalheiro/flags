@@ -1,6 +1,6 @@
 header {
     background-color: #777777;
-    padding: 45px 20px;
+    padding: 40px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,7 +31,7 @@ header {
     border: none; // Remove borda se houver
     background: none; // Remove o fundo do botão
     position: fixed;
-    top: 1.5rem;
+    top: 1.1rem;
     left: 5rem; 
 
     &:hover {
@@ -91,7 +91,7 @@ header {
     text-align: center;
     z-index: 1000;
     position: fixed;
-    top: 1.5rem;
+    top: 1.1rem;
     right: 5rem; 
   
     &:hover {

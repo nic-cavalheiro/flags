@@ -31,6 +31,7 @@ export class ModalComponent {
   @Output() close = new EventEmitter<void>();
 
   onClose() {
+    console.log('Modal fechado'); 
     this.close.emit();
   }
 }

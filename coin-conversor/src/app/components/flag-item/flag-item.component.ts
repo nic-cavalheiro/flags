@@ -29,9 +29,7 @@ export class FlagItemComponent implements OnInit, OnChanges {
   @Output() flagClicked = new EventEmitter<{name: string; imageUrl: string}>();
 
   onFlagClicked() {
-    this.flagClicked.emit(this.flag);
-    this.selectedFlag = this.flag;
-    this.isModalOpen = true; 
+    this.flagClicked.emit(this.flag); 
   }
 
   onClick(event: MouseEvent) {

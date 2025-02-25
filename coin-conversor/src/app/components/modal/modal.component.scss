@@ -1,53 +1,130 @@
-/* modal.component.scss */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    bottom: 0;
-    //background: rgba(112, 37, 37, 0.5);
-    background:transparent;/* Semi-transparent background */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(61, 54, 54, 0.541); /* Fundo translúcido escuro */
+  z-index: 1001; /* Overlay atrás do modal */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out; /* Animação suave */
+}
 
-    z-index: 1000;
+.modal-content {
+  position: relative;
+  background: #424242;
+  color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+  z-index: 1000;
+  width: 80%;
+  max-width: 1200px;
+  height: 80vh;
+  display: grid; /* Usando grid para controlar o layout */
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content min-content auto; /* Uma linha para o título, outra para a imagem e conteúdo */
+  gap: 1rem; /* Ajuste o espaçamento entre os elementos */
+  border-left: 5px solid #4b2e2e; /* Borda de destaque */
+  overflow-y: auto; /* adiciona scroll */
+  scrollbar-width: none; /* Oculta a barra de rolagem no Firefox */
+  justify-content: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  left: 10px; /* Distância do canto superior esquerdo */
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #ff3b3f; /* Mudança de cor ao passar o mouse */
   }
-  
-  .modal-content {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #4b2e2e;
-    padding: 1rem;
-    border-radius: 5px;
-    z-index: 1001;
-    width: 40%;
-    box-shadow: 0 4px 8px rgba(78, 78, 78, 0.4);
-    animation: fadeIn 0.3s; /* Adiciona uma animação de entrada */
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  text-align: left;
+  grid-column: 1 / -1; /* Faz o título ocupar toda a largura da primeira linha */
+  grid-row: 1; /* O título ocupa a primeira linha */
+}
+
+img {
+  width: 100%; /* A imagem ocupa toda a largura de sua coluna */
+  height: auto; /* Mantém a proporção da imagem */
+  max-height: 350px;
+  object-fit: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  grid-row: 2; /* A imagem ocupa a segunda linha */
+  grid-column: 1; /* Coloca a imagem na primeira coluna */
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  .modal-body img {
-    max-width: 0%; /* A imagem não deve ultrapassar a largura do modal */
-    max-height: 200%; /* Defina uma altura máxima para a imagem */
+  to {
+    opacity: 1;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    text-align: left;
+    grid-column: 1 / -1; /* Faz o título ocupar toda a largura da primeira linha */
+    grid-row: 1; /* O título ocupa a primeira linha */
+  }
+    
+  img {
+    width: 100%; /* A imagem ocupa toda a largura de sua coluna */
     height: auto; /* Mantém a proporção da imagem */
-    display: block; /* Garante que a imagem seja tratada como um bloco */
-    margin: 0 auto; /* Centraliza a imagem dentro do modal */
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    grid-row: 2; /* A imagem ocupa a segunda linha */
+    grid-column: 1; /* Coloca a imagem na primeira coluna *
+    grid-column: 1;
+    grid-row: 2; /* Mantém a imagem antes do texto */
   }
 
-  .close-button {
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
+  .modal-content {
+    position: relative;
+    background: #424242;
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+    z-index: 1000;
+    width: 80%;
+    max-width: 1200px;
+    height: 80vh;
+    display: grid; /* Usando grid para controlar o layout */
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content auto; /* Uma linha para o título, outra para a imagem e conteúdo */
+    gap: 1rem; /* Ajuste o espaçamento entre os elementos */
+    border-left: 5px solid #4b2e2e; /* Borda de destaque */
+    overflow-y: auto;
+    justify-content: center;
   }
+}
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  

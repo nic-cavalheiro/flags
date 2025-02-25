@@ -3,17 +3,17 @@ package com.backend.flags.models;
 public class WikipediaSummary {
 
     private String title;
-    private String extract;
+    private String source;
+    private String shortDescription; // Novo campo
 
-    // Construtores
     public WikipediaSummary() {}
 
-    public WikipediaSummary(String title, String extract) {
+    public WikipediaSummary(String title, String source, String shortDescription) {
         this.title = title;
-        this.extract = extract;
+        this.source = source;
+        this.shortDescription = shortDescription;
     }
 
-    // Getters e Setters
     public String getTitle() {
         return title;
     }
@@ -22,20 +22,27 @@ public class WikipediaSummary {
         this.title = title;
     }
 
-    public String getExtract() {
-        return extract;
+    public String getSource() {
+        return source;
     }
 
-    public void setExtract(String extract) {
-        this.extract = extract;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    // Override de toString, se necessário
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
     @Override
     public String toString() {
         return "WikipediaSummary{" +
                 "title='" + title + '\'' +
-                ", extract='" + extract + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
                 '}';
     }
 }
