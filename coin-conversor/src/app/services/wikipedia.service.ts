@@ -11,7 +11,13 @@ export class WikipediaService {
 
   constructor(private http: HttpClient) {}
 
+  // Método para obter informações gerais do país
   getCountryInfo(country: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${encodeURIComponent(country)}`);
+  }
+
+  // Método para obter informações econômicas do país
+  getEconomicInfo(country: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${encodeURIComponent(country)}/economics`);
   }
 }

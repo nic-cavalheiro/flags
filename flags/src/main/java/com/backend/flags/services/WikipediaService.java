@@ -1,62 +1,4 @@
 
-/*package com.backend.flags.services;
-
-import java.util.regex.*;
-import com.backend.flags.models.WikipediaSummary;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import java.net.URI;
-import java.util.Map;
-
-@Service
-public class WikipediaService {
-
-    private final RestTemplate restTemplate;
-    private static final String WIKIPEDIA_API_URL = "https://en.wikipedia.org/w/rest.php/v1/page/";
-
-    public WikipediaService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
-
-    public WikipediaSummary getCountrySummary(String country) {
-        String formattedCountry = country.replace(" ", "_");
-        URI uri = URI.create(WIKIPEDIA_API_URL + formattedCountry); // Obtém wikitext
-
-        System.out.println("URL montada: " + uri);
-
-        try {
-            // A API retorna um JSON, então usamos um Map para capturar `source`
-            Map<?, ?> response = restTemplate.getForObject(uri, Map.class);
-            String source = response != null ? (String) response.get("source") : "Não disponível";
-
-            // Extrai a descrição curta do wikitext
-            String shortDescription = extractSubTitle(source, "short description");
-
-            return new WikipediaSummary(formattedCountry, source, shortDescription);
-
-        } catch (Exception e) {
-            return new WikipediaSummary("Erro", "Não foi possível obter informações.", "Não disponível");
-        }
-    }
-
-    public static String extractSubTitle(String source, String key) {
-        if (source == null || source.isEmpty()) {
-            return "Nenhum conteúdo disponível.";
-        }
-
-        // Expressão regular para capturar {{key|conteúdo}}
-        String regex = "\\{\\{" + key + "\\|(.*?)}}";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(source);
-
-        if (matcher.find()) {
-            return matcher.group(1).trim(); // Retorna o conteúdo dentro das chaves
-        }
-
-        return "Não encontrado";
-    }
-}*/
-
 package com.backend.flags.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -64,7 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.backend.flags.models.WikipediaSummary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class WikipediaService {
@@ -79,34 +24,98 @@ public class WikipediaService {
     }
 
     public WikipediaSummary getCountrySummary(String country) {
-        // Substitui espaços por "_" no nome do país para compatibilidade com a URL da Wikipédia
-        String formattedCountry = country.replace(" ", "_");
+        String formattedCountry = URLEncoder.encode(country, StandardCharsets.UTF_8).replace("+", "%20");
         URI uri = URI.create(WIKIPEDIA_API_URL + formattedCountry + "&format=json");
 
-        System.out.println("URL montada: " + uri); // Debug
+        System.out.println("[0] URL montada: " + uri);
 
         try {
-            // Faz a requisição HTTP e obtém a resposta como String
             String jsonResponse = restTemplate.getForObject(uri, String.class);
-            // Converte a resposta JSON para um objeto JsonNode
-            JsonNode root = objectMapper.readTree(jsonResponse);
+            System.out.println("[1] Resposta da API: " + jsonResponse);
 
-            // Acessa os dados da resposta JSON
+            JsonNode root = objectMapper.readTree(jsonResponse);
             JsonNode pages = root.path("query").path("pages");
 
-            // Obtém o ID da primeira página (isso funciona para artigos que existem)
+            if (!pages.fieldNames().hasNext()) {
+                System.out.println("[2] Nenhuma página encontrada.");
+                return new WikipediaSummary(country, "Conteúdo não disponível.");
+            }
+
             String pageId = pages.fieldNames().next();
             JsonNode page = pages.path(pageId);
-            String extract = page.path("extract").asText("Descrição não disponível."); // Valor padrão se "extract" não for encontrado
+            String title = page.path("title").asText("Título não disponível.");
+            String extract = page.path("extract").asText(null);
 
-            // Retorna o objeto WikipediaSummary com o título do país e o resumo
-            return new WikipediaSummary(country, extract);
+            // System.out.println("[3] Título: " + title);
+            // System.out.println("[4] Extract: " + extract);
+
+            if (extract == null || extract.isEmpty()) {
+                System.out.println("[5] Extract vazio. Buscando redirecionamento...");
+                String redirectedTitle = fetchRedirectedTitle(formattedCountry);
+
+                if (redirectedTitle != null && !redirectedTitle.equalsIgnoreCase(country)) {
+                    System.out.println("[6] Redirecionando para: " + redirectedTitle);
+                    return getCountrySummary(redirectedTitle);
+                } else {
+                    System.out.println("[7] Nenhum redirecionamento encontrado.");
+                    return new WikipediaSummary(title, "Conteúdo não disponível.");
+                }
+            }
+
+            return new WikipediaSummary(title, extract);
         } catch (Exception e) {
-            // Caso haja algum erro, retorna uma resposta padrão indicando erro
+            System.err.println("[8] Erro ao obter dados da Wikipedia: " + e.getMessage());
             return new WikipediaSummary("Erro", "Não foi possível obter informações.");
         }
     }
+
+    private String fetchRedirectedTitle(String formattedCountry) {
+        URI uri = URI.create("https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvslots=main&rvprop=content&titles=" + formattedCountry + "&format=json");
+        try {
+            System.out.println("[9] URL de revisions montada: " + uri);
+            String jsonResponse = restTemplate.getForObject(uri, String.class);
+            System.out.println("[10] Resposta da API de revisões: " + jsonResponse);
+
+            JsonNode root = objectMapper.readTree(jsonResponse);
+            JsonNode pages = root.path("query").path("pages");
+
+            if (!pages.fieldNames().hasNext()) {
+                return null;
+            }
+
+            String pageId = pages.fieldNames().next();
+            JsonNode revisions = pages.path(pageId).path("revisions");
+
+            if (revisions.isArray() && revisions.size() > 0) {
+                String content = revisions.get(0).path("slots").path("main").path("*").asText("");
+                return extractRedirectedTitle(content);
+            }
+        } catch (Exception e) {
+            System.err.println("[11] Erro ao obter redirecionamento: " + e.getMessage());
+        }
+        return null;
+    }
+
+    private String extractRedirectedTitle(String content) {
+        if (content.startsWith("#REDIRECT [[")) {
+            int start = content.indexOf("[[") + 2;
+            int end = content.indexOf("]]");
+            if (start > 1 && end > start) {
+                return content.substring(start, end);
+            }
+        }
+        return null;
+    }
 }
+
+
+
+
+
+
+
+
+
 
 
 

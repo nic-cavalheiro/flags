@@ -9,7 +9,7 @@ import { FlagItemComponent } from './components/flag-item/flag-item.component';
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [FlagItemComponent, FlagListComponent, CommonModule, HeaderComponent, FooterComponent],
+  imports: [FlagListComponent, CommonModule, HeaderComponent, FooterComponent],
 })
 export class AppComponent {
   @Input() isDarkTheme = false;

@@ -43,8 +43,8 @@ app-modal {
   img {
     grid-row: 2;
     height: auto;
-    max-width: 100%;
-    max-height: 400px;
+    max-width: 90%;
+    max-height: 90%;
     margin-bottom: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -62,11 +62,12 @@ app-modal {
     border-radius: 10px;
     height: auto;
     max-width: 100%;
-    max-height: 400px;
+    max-height: 300px;
     box-sizing: border-box;
     overflow-y: auto; /* Adiciona scroll se o texto for muito grande */
     scrollbar-width: none; /* Oculta a barra de rolagem no Firefox */
   }
+
 
   .wiki-conteudo::-webkit-scrollbar {
     display: none; /* Oculta a barra de rolagem no Chrome, Edge e Safari */
@@ -92,6 +93,51 @@ app-modal {
     word-wrap: break-word; /* Quebra palavras longas para evitar estouro */
     overflow-wrap: break-word; /* Alternativa para garantir que palavras grandes sejam quebradas */
     text-align: justify; /* Mantém uma formatação mais organizada */
+  }
+
+  /* Estilização das Informações Econômicas */
+  .wiki-economics-info {
+    display: grid;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: start;
+    background: rgba(0, 0, 0, 0.349);
+    padding: 20px;
+    border-radius: 10px;
+    height: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    margin-top: 15px;
+    scrollbar-width: none; /* Oculta a barra de rolagem no Firefox */
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .wiki-economics-info::-webkit-scrollbar {
+    display: none; /* Oculta a barra de rolagem no Chrome, Edge e Safari */
+  }
+
+  .wiki-economics-info h4 {
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 1px;
+    font-weight: 600;
+    align-self: flex-start;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  .wiki-economics-info p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: justify;
   }
 }
 
@@ -119,5 +165,38 @@ app-modal {
     height: auto;
     box-sizing: border-box;
     order: 2;
+  }
+
+  .wiki-economics-info {
+    display: grid;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: start;
+    background: rgba(0, 0, 0, 0.349);
+    padding: 20px;
+    border-radius: 10px;
+    height: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    margin-top: 15px;
+    scrollbar-width: none; /* Oculta a barra de rolagem no Firefox */
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .wiki-economics-info h4 {
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 1px;
+    font-weight: 600;
+    align-self: flex-start;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    border: none;
+    grid-column: 1;
+    grid-row: 4;
+
   }
 }

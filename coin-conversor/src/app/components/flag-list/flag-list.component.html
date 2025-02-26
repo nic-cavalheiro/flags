@@ -18,6 +18,13 @@
       <p *ngIf="countryInfo.extract">{{ countryInfo.extract }}</p>
     </div>
 
+    <div class="wiki-economics-info" *ngIf="economicInfo">
+      <h4>Economia: </h4>
+      <p *ngIf="economicInfo.content">{{economicInfo.content}}</p>
+
+      <p *ngIf="!economicInfo.content">Informações econômicas não disponíveis.</p>
+    </div>
+
     <p *ngIf="!countryInfo">Carregando informações...</p>
   </app-modal>
 </div>

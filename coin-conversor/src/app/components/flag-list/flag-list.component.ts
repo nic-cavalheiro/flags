@@ -19,7 +19,8 @@ export class FlagListComponent implements OnInit {
   selectedFlag: { name: string; imageUrl: string } | null = null;
   isModalOpen = false;
   countryInfo: any = null; // Armazena os dados da Wikipédia
-
+  economicInfo: any = null;
+  
   constructor(
     private flagService: FlagService,
     private wikipediaService: WikipediaService // Inicie o serviço da Wikipédia
@@ -37,11 +38,21 @@ export class FlagListComponent implements OnInit {
     } else {
       this.selectedFlag = flag;
       this.isModalOpen = true;
-      
+
+      // Resetar os dados antes de buscar
+      this.countryInfo = null;
+      this.economicInfo = null;  
+
       // Buscar informações da Wikipédia do país
       this.wikipediaService.getCountryInfo(flag.name).subscribe(data => {
-        this.countryInfo = data;  // Armazena os dados da Wikipédia
-        console.log('Dados da Wikipédia:', this.countryInfo);
+        this.countryInfo = data;
+        console.log('Resumo da Wikipédia:', this.countryInfo);
+      });
+
+      // Buscar informações econômicas separadas
+      this.wikipediaService.getEconomicInfo(flag.name).subscribe(economicData => {
+        this.economicInfo = economicData;
+        console.log('Informações econômicas:', this.economicInfo);
       });
     }
   }

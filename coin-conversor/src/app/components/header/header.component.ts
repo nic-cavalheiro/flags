@@ -7,7 +7,7 @@ import { FlagItemComponent } from '../flag-item/flag-item.component';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule, FlagItemComponent, CommonModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

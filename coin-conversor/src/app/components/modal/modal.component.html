@@ -1,16 +1,4 @@
-<!-- <div class="modal-overlay" (click)="closeModal()"></div>
-<div class="modal-content">
-  <div class="modal-header">
-    <h3>{{ title }}</h3>
-    <button class="close-button" (click)="closeModal()">X</button>
-  </div>
-  <div class="modal-body">
-    <ng-content></ng-content>
-  </div>
-  <div class="modal-footer">
-    <button (click)="closeModal()">Fechar</button>
-  </div>
-</div> -->
+
 <div class="modal-overlay" (click)="onClose()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <button class="close-button" (click)="$event.stopPropagation(); onClose()">X</button>
