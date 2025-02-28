@@ -1,4 +1,204 @@
 
+// .flag-list {
+//   left: 5%;
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+//   gap: 50px;
+//   justify-items: center;
+//   padding: 70px;
+//   margin: 70px 0;
+// }
+
+// app-modal {
+//   display: grid;
+//   justify-content: center;
+//   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+//   grid-template-rows: auto min-content auto;
+//   gap: 10px;
+//   background-color: #fff;
+//   border-radius: 15px;
+//   padding: 40px;
+//   max-width: 1200px;
+//   width: 100%;
+//   margin: 50px auto;
+//   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+//   transition: transform 0.3s ease, opacity 0.3s ease;
+//   opacity: 1;
+
+//   &.modal-close {
+//     opacity: 0;
+//     transform: translateY(50px);
+//     pointer-events: none;
+//   }
+
+//   h3 {
+//     grid-column: 1 / -1;
+//     font-size: 24px;
+//     font-weight: 600;
+//     color: #ffffff;
+//     margin-bottom: 10px;
+//     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+//   }
+
+//   img {
+//     grid-row: 2;
+//     height: auto;
+//     max-width: 100%; /* Alteração: ajuste para garantir que a imagem ocupe a largura disponível sem estourar */
+//     max-height: 500px; /* Limita a altura máxima da imagem */
+//     margin-bottom: 10px;
+//     border-radius: 8px;
+//     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+//     transition: transform 0.3s ease;
+//     object-fit: contain;
+//   }
+
+//   .wiki-conteudo {
+//     display: grid;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     text-align: start;
+//     background: rgba(0, 0, 0, 0.349);
+//     padding: 15px;
+//     border-radius: 10px;
+//     height: auto;
+//     max-width: 100%;
+//     max-height: 300px;
+//     box-sizing: border-box;
+//     overflow-y: auto; /* Adiciona scroll se o texto for muito grande */
+//     scrollbar-width: none; /* Oculta a barra de rolagem no Firefox */
+//   }
+
+//   .wiki-conteudo::-webkit-scrollbar {
+//     display: none; /* Oculta a barra de rolagem no Chrome, Edge e Safari */
+//   }
+
+//   h4 {
+//     font-size: 20px;
+//     color: #ffffff;
+//     margin-bottom: 1px;
+//     font-weight: 600;
+//     align-self: flex-start;
+//     line-height: 1.2;
+//     margin: 0;
+//     padding: 0;
+//     border: none;
+//   }
+
+//   p {
+//     margin-bottom: 10px;
+//     font-size: 16px;
+//     color: #ffffff;
+//     max-width: 100%; /* Garante que o texto não ultrapasse o container */
+//     word-wrap: break-word; /* Quebra palavras longas para evitar estouro */
+//     overflow-wrap: break-word; /* Alternativa para garantir que palavras grandes sejam quebradas */
+//     text-align: justify; /* Mantém uma formatação mais organizada */
+//   }
+
+//   /* Estilização das Informações Econômicas */
+//   .wiki-economics-info {
+//     display: grid;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     text-align: start;
+//     background: rgba(0, 0, 0, 0.349);
+//     padding: 20px;
+//     border-radius: 10px;
+//     height: auto;
+//     max-width: 100%;
+//     box-sizing: border-box;
+//     overflow-y: auto;
+//     margin-top: 15px;
+//     scrollbar-width: none; /* Oculta a barra de rolagem no Firefox */
+//     grid-column: 1;
+//     grid-row: 3;
+//   }
+
+//   .wiki-economics-info::-webkit-scrollbar {
+//     display: none; /* Oculta a barra de rolagem no Chrome, Edge e Safari */
+//   }
+
+//   .wiki-economics-info h4 {
+//     font-size: 20px;
+//     color: #ffffff;
+//     margin-bottom: 1px;
+//     font-weight: 600;
+//     align-self: flex-start;
+//     line-height: 1.2;
+//     margin: 0;
+//     padding: 0;
+//     border: none;
+//   }
+
+//   .wiki-economics-info p {
+//     margin-bottom: 10px;
+//     font-size: 16px;
+//     color: #ffffff;
+//     max-width: 100%;
+//     word-wrap: break-word;
+//     overflow-wrap: break-word;
+//     text-align: justify;
+//   }
+// }
+
+// /* Responsividade */
+// @media (max-width: 768px) {
+  
+//   app-modal {
+//     display: grid;
+//     flex-direction: column;
+//     grid-template-columns: 1fr;
+//     grid-template-rows: min-content auto auto auto auto;
+//   }
+
+//   .wiki-conteudo {
+//     grid-column: 1;
+//     grid-row: 3;
+//     max-width: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     text-align: start;
+//     background: rgba(0, 0, 0, 0.349);
+//     padding: 20px;
+//     border-radius: 10px;
+//     height: auto;
+//     box-sizing: border-box;
+//   }
+
+//   .wiki-economics-info h4 {
+//     display: grid;
+//     font-size: 20px;
+//     color: #ffffff;
+//     margin-bottom: 1px;
+//     font-weight: 600;
+//     align-self: flex-start;
+//     line-height: 1.2;
+//     margin: 0;
+//     padding: 0;
+//     border: none;
+//     grid-column: 1;
+//     grid-row: 4;
+//   }
+
+//   .wiki-economics-info {
+//     display: grid;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     text-align: start;
+//     background: rgba(0, 0, 0, 0.349);
+//     padding: 20px;
+//     border-radius: 10px;
+//     height: auto;
+//     max-width: 100%;
+//     box-sizing: border-box;
+//     overflow-y: auto;
+//     margin-top: 15px;
+//     scrollbar-width: none;
+//     grid-column: 1;
+//     grid-row: 5;
+//   }
+// }
+
 .flag-list {
   left: 5%;
   display: grid;
@@ -64,38 +264,31 @@ app-modal {
     max-width: 100%;
     max-height: 300px;
     box-sizing: border-box;
-    overflow-y: auto; /* Adiciona scroll se o texto for muito grande */
-    scrollbar-width: none; /* Oculta a barra de rolagem no Firefox */
+    overflow-y: auto;
+    scrollbar-width: none;
   }
-
 
   .wiki-conteudo::-webkit-scrollbar {
-    display: none; /* Oculta a barra de rolagem no Chrome, Edge e Safari */
+    display: none;
   }
 
-  h4 {
-    font-size: 20px;
-    color: #ffffff;
-    margin-bottom: 1px;
-    font-weight: 600;
-    align-self: flex-start;
-    line-height: 1.2;
-    margin: 0;
-    padding: 0;
-    border: none;
-  }
-
-  p {
-    margin-bottom: 10px;
+  .loading-text {
     font-size: 16px;
     color: #ffffff;
-    max-width: 100%; /* Garante que o texto não ultrapasse o container */
-    word-wrap: break-word; /* Quebra palavras longas para evitar estouro */
-    overflow-wrap: break-word; /* Alternativa para garantir que palavras grandes sejam quebradas */
-    text-align: justify; /* Mantém uma formatação mais organizada */
+    // font-weight: 600;
+    // text-align: center;
+    // padding: 10px;
+    // background-color: rgba(0, 0, 0, 0.4);
+    // border-radius: 10px;
+    // margin-top: 10px;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // height: 40px;
+    // width: 100%;
+    // box-sizing: border-box;
   }
 
-  /* Estilização das Informações Econômicas */
   .wiki-economics-info {
     display: grid;
     flex-direction: column;
@@ -109,13 +302,11 @@ app-modal {
     box-sizing: border-box;
     overflow-y: auto;
     margin-top: 15px;
-    scrollbar-width: none; /* Oculta a barra de rolagem no Firefox */
-    grid-column: 1;
-    grid-row: 3;
+    scrollbar-width: none;
   }
 
   .wiki-economics-info::-webkit-scrollbar {
-    display: none; /* Oculta a barra de rolagem no Chrome, Edge e Safari */
+    display: none;
   }
 
   .wiki-economics-info h4 {
@@ -141,14 +332,12 @@ app-modal {
   }
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
-  
   app-modal {
     display: grid;
     flex-direction: column;
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: min-content auto auto auto auto;
   }
 
   .wiki-conteudo {
@@ -164,7 +353,21 @@ app-modal {
     border-radius: 10px;
     height: auto;
     box-sizing: border-box;
-    order: 2;
+  }
+
+  .wiki-economics-info h4 {
+    display: grid;
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 1px;
+    font-weight: 600;
+    align-self: flex-start;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    border: none;
+    grid-column: 1;
+    grid-row: 4;
   }
 
   .wiki-economics-info {
@@ -180,23 +383,9 @@ app-modal {
     box-sizing: border-box;
     overflow-y: auto;
     margin-top: 15px;
-    scrollbar-width: none; /* Oculta a barra de rolagem no Firefox */
+    scrollbar-width: none;
     grid-column: 1;
-    grid-row: 4;
-  }
-
-  .wiki-economics-info h4 {
-    font-size: 20px;
-    color: #ffffff;
-    margin-bottom: 1px;
-    font-weight: 600;
-    align-self: flex-start;
-    line-height: 1.2;
-    margin: 0;
-    padding: 0;
-    border: none;
-    grid-column: 1;
-    grid-row: 4;
-
+    grid-row: 5;
   }
 }
+

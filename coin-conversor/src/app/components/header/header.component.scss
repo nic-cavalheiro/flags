@@ -1,135 +1,361 @@
+// header {
+//     background-color: #777777;
+//     padding: 40px 20px;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     border-bottom: 1px solid #dee2e6;
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     z-index: 999;
+//     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+// }
+
+// .home-button {
+//     background: transparent; /* Gradiente de fundo */
+//     margin-top: 1px;
+//     color: #f0f0f0; /* Texto claro */
+//     border: none; /* Remove a borda padrão */
+//     border-radius: px; /* Bordas arredondadas */
+//     padding: 0px; /* Espaçamento interno */
+//     font-size: 12px; /* Tamanho da fonte */
+//     font-weight: bold; /* Texto em negrito */
+//     text-transform: uppercase; /* Texto em maiúsculas */
+//     cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+//     transition: background 0.3s, transform 0.2s, drop-shadow 0.3s; /* Transições suaves */
+//     filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.9)); /* Sombra para profundidade */
+//     text-align: center;
+//     outline: none;
+//     border: none; // Remove borda se houver
+//     background: none; // Remove o fundo do botão
+//     position: fixed;
+//     top: 1.1rem;
+//     left: 5rem; 
+
+//     &:hover {
+//         background: linear-gradient(135deg, #5a5a5a, #444); /* Gradiente mais claro ao passar o mouse */
+//         transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+//         filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4)) ; /* Sombra mais intensa */
+//     }
+//     &:focus {
+//         outline: none; /* Remove o contorno padrão */
+//         //box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); /* Contorno suave ao focar */
+//     }
+    
+//         /* Efeito de desabilitado */
+//     &:disabled {
+//         background: #666; /* Fundo cinza quando desabilitado */
+//         cursor: not-allowed; /* Cursor desabilitado */
+//         //box-shadow: none; /* Remove a sombra */
+//     }
+// }
+
+// .home-icon {
+//     width: 35px;
+//     height: auto;
+//     padding: 0px;
+//     background: none;
+//     border: none;
+//     transition: transform 0.2s ease-in-out;
+//     &:hover {
+//       transform: scale(1.1); // Efeito de leve aumento ao passar o mouse
+//     }
+    
+// }
+
+// .dark-theme {
+//     background-color: #363636; 
+//     font-weight: bold;
+//     color: #ffffff;
+//     .flag-name{
+//       color: #ffffff;
+//     }
+//   }
+  
+//   .theme-toggle {
+//     background: linear-gradient(135deg, #4a4a4a, #333); /* Gradiente de fundo */
+//     background-size: 25px 25px;
+//     margin-top: 1px;
+//     color: #f0f0f0; /* Texto claro */
+//     border: 0px solid #ffffff; /* Remove a borda padrão */
+//     border-radius: 3px; /* Bordas arredondadas */
+//     padding: 0px; /* Espaçamento interno */
+//     font-size: 12px; /* Tamanho da fonte */
+//     font-weight: bold; /* Texto em negrito */
+//     text-transform: uppercase; /* Texto em maiúsculas */
+//     cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+//     transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Transições suaves */
+//     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9); /* Sombra para profundidade */
+//     text-align: center;
+//     z-index: 1000;
+//     position: fixed;
+//     top: 1.1rem;
+//     right: 5rem; 
+  
+//     &:hover {
+//       background: linear-gradient(135deg, #5a5a5a, #444); /* Gradiente mais claro ao passar o mouse */
+//       transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+//       box-shadow: 0 8px 20px rgba(0, 0, 0, 1.5); /* Sombra mais intensa */
+//     }
+  
+//     /* Efeito de foco */
+//     &:focus {
+//       outline: none; /* Remove o contorno padrão */
+//       box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); /* Contorno suave ao focar */
+//     }
+  
+//     /* Efeito de desabilitado */
+//     &:disabled {
+//       background: #666; /* Fundo cinza quando desabilitado */
+//       cursor: not-allowed; /* Cursor desabilitado */
+//       box-shadow: none; /* Remove a sombra */
+//     }
+
+//     .icon {
+//       width: 30px;
+//       height: auto;
+//       cursor: pointer;
+//       transition: transform 0.2s ease-in-out;
+  
+//       &:hover {
+//         transform: scale(1.1); // Efeito de leve aumento ao passar o mouse
+//       }
+//     }
+//   }
+  
+//   .flag-name-dark{
+//     margin-top: 10px; 
+//     font-weight: bold;
+//     text-align: center; 
+//     color: #ffffff;
+//   }
+
+//   /* Estilização para a barra de pesquisa */
+// .search-bar {
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+//   flex-grow: 1;
+//   margin-left: 20px;
+// }
+
+// .search-bar input {
+//   width: 100%;
+//   padding: 10px;
+//   border: 1px solid #ddd;
+//   border-radius: 20px;
+//   font-size: 14px;
+//   outline: none;
+//   box-shadow: none;
+//   background-color: #fff;
+//   transition: all 0.3s ease;
+
+//   &::placeholder {
+//       color: #888;
+//   }
+
+//   &:focus {
+//       border-color: #5a5a5a;
+//       background-color: #f5f5f5;
+//   }
+// }
+
+// .search-bar .flag-thumbnail {
+//   position: absolute;
+//   right: 10px;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   width: 24px;
+//   height: 24px;
+//   object-fit: cover;
+//   border-radius: 50%;
+// }
+
+// .dark-theme .search-bar input {
+//   background-color: #444;
+//   color: #fff;
+//   border-color: #888;
+// }
+
 header {
-    background-color: #777777;
-    padding: 40px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #dee2e6;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+  background-color: #777777;
+  padding: 20px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dee2e6;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
 }
 
 .home-button {
-    background: transparent; /* Gradiente de fundo */
-    margin-top: 1px;
-    color: #f0f0f0; /* Texto claro */
-    border: none; /* Remove a borda padrão */
-    border-radius: px; /* Bordas arredondadas */
-    padding: 0px; /* Espaçamento interno */
-    font-size: 12px; /* Tamanho da fonte */
-    font-weight: bold; /* Texto em negrito */
-    text-transform: uppercase; /* Texto em maiúsculas */
-    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-    transition: background 0.3s, transform 0.2s, drop-shadow 0.3s; /* Transições suaves */
-    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.9)); /* Sombra para profundidade */
-    text-align: center;
-    outline: none;
-    border: none; // Remove borda se houver
-    background: none; // Remove o fundo do botão
-    position: fixed;
-    top: 1.1rem;
-    left: 5rem; 
+  background: transparent;
+  margin-top: 1px;
+  color: #f0f0f0;
+  border: none;
+  padding: 0px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, drop-shadow 0.3s;
+  filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.9));
+  text-align: center;
+  outline: none;
+  position: fixed;
+  top: 1.1rem;
+  left: 5rem;
 
-    &:hover {
-        background: linear-gradient(135deg, #5a5a5a, #444); /* Gradiente mais claro ao passar o mouse */
-        transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
-        filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4)) ; /* Sombra mais intensa */
-    }
-    &:focus {
-        outline: none; /* Remove o contorno padrão */
-        //box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); /* Contorno suave ao focar */
-    }
-    
-        /* Efeito de desabilitado */
-    &:disabled {
-        background: #666; /* Fundo cinza quando desabilitado */
-        cursor: not-allowed; /* Cursor desabilitado */
-        //box-shadow: none; /* Remove a sombra */
-    }
+  &:hover {
+      background: linear-gradient(135deg, #5a5a5a, #444);
+      transform: translateY(-2px);
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+  }
+  &:disabled {
+      background: #666;
+      cursor: not-allowed;
+  }
 }
 
 .home-icon {
-    width: 35px;
-    height: auto;
-    padding: 0px;
-    background: none;
-    border: none;
-    transition: transform 0.2s ease-in-out;
-    &:hover {
-      transform: scale(1.1); // Efeito de leve aumento ao passar o mouse
-    }
-    
+  width: 35px;
+  height: auto;
+  padding: 0px;
+  background: none;
+  border: none;
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+      transform: scale(1.1);
+  }
 }
 
 .dark-theme {
-    background-color: #363636; 
-    font-weight: bold;
-    color: #ffffff;
-    .flag-name{
-      color: #ffffff;
-    }
-  }
-  
-  .theme-toggle {
-    background: linear-gradient(135deg, #4a4a4a, #333); /* Gradiente de fundo */
-    background-size: 25px 25px;
-    margin-top: 1px;
-    color: #f0f0f0; /* Texto claro */
-    border: 0px solid #ffffff; /* Remove a borda padrão */
-    border-radius: 3px; /* Bordas arredondadas */
-    padding: 0px; /* Espaçamento interno */
-    font-size: 12px; /* Tamanho da fonte */
-    font-weight: bold; /* Texto em negrito */
-    text-transform: uppercase; /* Texto em maiúsculas */
-    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Transições suaves */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9); /* Sombra para profundidade */
-    text-align: center;
-    z-index: 1000;
-    position: fixed;
-    top: 1.1rem;
-    right: 5rem; 
-  
-    &:hover {
-      background: linear-gradient(135deg, #5a5a5a, #444); /* Gradiente mais claro ao passar o mouse */
-      transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 1.5); /* Sombra mais intensa */
-    }
-  
-    /* Efeito de foco */
-    &:focus {
-      outline: none; /* Remove o contorno padrão */
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); /* Contorno suave ao focar */
-    }
-  
-    /* Efeito de desabilitado */
-    &:disabled {
-      background: #666; /* Fundo cinza quando desabilitado */
-      cursor: not-allowed; /* Cursor desabilitado */
-      box-shadow: none; /* Remove a sombra */
-    }
+  background-color: #363636;
+  color: #ffffff;
+}
 
-    .icon {
+.theme-toggle {
+  background: linear-gradient(135deg, #4a4a4a, #333);
+  margin-top: 1px;
+  color: #f0f0f0;
+  border: none;
+  padding: 0px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 1.1rem;
+  right: 5rem;
+
+  &:hover {
+      background: linear-gradient(135deg, #5a5a5a, #444);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 1.5);
+  }
+
+  &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  }
+
+  &:disabled {
+      background: #666;
+      cursor: not-allowed;
+      box-shadow: none;
+  }
+
+  .icon {
       width: 30px;
       height: auto;
       cursor: pointer;
       transition: transform 0.2s ease-in-out;
-  
       &:hover {
-        transform: scale(1.1); // Efeito de leve aumento ao passar o mouse
+          transform: scale(1.1);
       }
-    }
   }
-  
-  .flag-name-dark{
-    margin-top: 10px; 
-    font-weight: bold;
-    text-align: center; 
-    color: #ffffff;
+}
+
+.flag-name-dark {
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
+}
+
+/* Estilização para a barra de pesquisa */
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  max-width: 200px; /* Reduz a largura da barra de pesquisa */
+  margin-left: 20px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+  background-color: #fff;
+  transition: all 0.3s ease;
+
+  &::placeholder {
+      color: #888;
   }
 
-  
+  &:focus {
+      border-color: #5a5a5a;
+      background-color: #f5f5f5;
+  }
+}
+
+.search-results {
+  position: absolute;
+  top: 40px; /* Espaçamento abaixo da barra de pesquisa */
+  left: 0;
+  right: 0;
+  max-height: 200px; /* Limita a altura da lista */
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.search-results .flag-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+      background-color: #f0f0f0;
+  }
+}
+
+.search-results .flag-item img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.dark-theme .search-bar input {
+  background-color: #444;
+  color: #fff;
+  border-color: #888;
+}
+
+

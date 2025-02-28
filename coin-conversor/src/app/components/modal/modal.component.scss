@@ -26,7 +26,7 @@
   height: 80vh;
   display: grid; /* Usando grid para controlar o layout */
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto auto; /* Uma linha para o título, outra para a imagem e conteúdo */
+  grid-template-rows: min-content min-content auto auto auto; /* Uma linha para o título, outra para a imagem e conteúdo */
   gap: 1rem; /* Ajuste o espaçamento entre os elementos */
   border-left: 5px solid #4b2e2e; /* Borda de destaque */
   overflow-y: auto; /* adiciona scroll */
@@ -82,47 +82,23 @@ img {
   }
 }
 
-
-
 @media (max-width: 768px) {
-
-  h3 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #ffffff;
-    margin: 0;
-    text-align: left;
-    grid-column: 1 / -1; /* Faz o título ocupar toda a largura da primeira linha */
-    grid-row: 1; /* O título ocupa a primeira linha */
-  }
-    
-  img {
-    width: 100%; /* A imagem ocupa toda a largura de sua coluna */
-    height: auto; /* Mantém a proporção da imagem */
-    max-height: 350px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    grid-row: 2; /* A imagem ocupa a segunda linha */
-    grid-column: 1; /* Coloca a imagem na primeira coluna */
-  }
-
   .modal-content {
-    position: relative;
+    display: grid;
+    position: absolute;
     background: #424242;
     color: white;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); 
     z-index: 1000;
     width: 80%;
     max-width: 1200px;
     height: 80vh;
-    display: grid; /* Usando grid para controlar o layout */
     grid-template-columns: 1fr;
-    grid-template-rows: min-content min-content auto; /* Uma linha para o título, outra para a imagem e conteúdo */
-    gap: 1rem; /* Ajuste o espaçamento entre os elementos */
-    border-left: 5px solid #4b2e2e; /* Borda de destaque */
+    grid-template-rows: min-content auto auto auto auto; 
+    gap: 1rem;
+    border-left: 5px solid #4b2e2e;
     overflow-y: auto;
     justify-content: center;
   }

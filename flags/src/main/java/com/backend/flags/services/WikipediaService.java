@@ -16,7 +16,7 @@ public class WikipediaService {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
-    private static final String WIKIPEDIA_API_URL = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=true&explaintext=true&titles=";
+    public static final String WIKIPEDIA_API_URL = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=true&explaintext=true&titles=";
 
     public WikipediaService(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
@@ -31,7 +31,7 @@ public class WikipediaService {
 
         try {
             String jsonResponse = restTemplate.getForObject(uri, String.class);
-            System.out.println("[1] Resposta da API: " + jsonResponse);
+            //System.out.println("[1] Resposta da API com URL: "+ uri + jsonResponse);
 
             JsonNode root = objectMapper.readTree(jsonResponse);
             JsonNode pages = root.path("query").path("pages");
@@ -69,7 +69,7 @@ public class WikipediaService {
         }
     }
 
-    private String fetchRedirectedTitle(String formattedCountry) {
+    public String fetchRedirectedTitle(String formattedCountry) {
         URI uri = URI.create("https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvslots=main&rvprop=content&titles=" + formattedCountry + "&format=json");
         try {
             System.out.println("[9] URL de revisions montada: " + uri);
