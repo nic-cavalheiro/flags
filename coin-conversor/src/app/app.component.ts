@@ -14,6 +14,12 @@ import { FlagItemComponent } from './components/flag-item/flag-item.component';
 export class AppComponent {
   @Input() isDarkTheme = false;
 
+  selectedFlag: any = null;
+
+  onFlagSelected(flag: any) {
+    this.selectedFlag = flag;
+  }
+  
   toggleExpand(flag: any): void {
     flag.expanded = !flag.expanded;
   }

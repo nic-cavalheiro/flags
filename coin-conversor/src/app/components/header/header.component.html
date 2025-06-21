@@ -1,40 +1,5 @@
-<!-- <header>
-    <div>
-      <button (click)="goHome()" class="home-button">
-        <img src="assets/home.png" alt="homeimg" class="home-icon"/>
-      </button>
-    </div>
 
-  
-  <div class="search-bar">
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      (input)="filterFlags()"
-      placeholder="Pesquisar bandeiras..."
-    />
-    
-    
-    <div *ngIf="filteredFlags.length > 0 && searchTerm" class="search-results">
-      <div *ngFor="let flag of filteredFlags" class="flag-item">
-        <img [src]="flag.imageUrl" alt="{{flag.name}}" />
-        <span>{{flag.name}}</span>
-      </div>
-    </div>
-  </div>
-
-    <div>
-      <button class="theme-toggle" (click)="toggleTheme()">
-        <img src="{{isDarkTheme ? 'assets/switch.png' : 'assets/switch2.png'}}" alt="button icon" class="icon"/>
-      </button> 
-    </div>
-
-    <app-flag-list (flagsLoaded)="onFlagsLoaded($event)"></app-flag-list>
-    
-  </header>
- -->
-
- <header>
+<header>
   <div>
     <button (click)="goHome()" class="home-button">
       <img src="assets/home.png" alt="homeimg" class="home-icon"/>
@@ -48,19 +13,28 @@
       [(ngModel)]="searchTerm"
       (input)="filterFlags()"
       (click)="onSearchBarClick()"
+      
       placeholder="Pesquisar bandeiras..."
     />
     
     <div *ngIf="filteredFlags.length > 0 && searchTerm" class="search-results">
-      <div 
-        *ngFor="let flag of filteredFlags" 
-        class="flag-item"
-        (click)="selectFlag(flag)">
-        <img [src]="flag.imageUrl" alt="{{flag.name}}" />
+      <div class="flag-item" 
+      *ngFor="let flag of filteredFlags" 
+      (click)="onFlagClicked(flag)">
+
+        <img [src]="flag.imageUrl" alt="{{flag.name}}"/>
         <span>{{flag.name}}</span>
-      </div>
+    </div>
     </div>
   </div>
+
+  <app-modal *ngIf="isModalOpen" 
+            [selectedFlag]="selectedFlag" 
+            [countryInfo]="countryInfo"
+            [economicInfo]="economicInfo"
+            [isDataLoaded]="isDataLoaded" 
+            (close)="flagList.closeModal()">
+</app-modal>
 
   <div>
     <button class="theme-toggle" (click)="toggleTheme()">
@@ -68,4 +42,6 @@
     </button> 
   </div>
 </header>
+
+
 

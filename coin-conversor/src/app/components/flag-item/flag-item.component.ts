@@ -29,14 +29,15 @@ export class FlagItemComponent implements OnInit, OnChanges {
   @Output() flagClicked = new EventEmitter<{name: string; imageUrl: string}>();
 
   onFlagClicked() {
-    this.flagClicked.emit(this.flag); 
+    this.flagClicked.emit(this.flag);
   }
 
-  onClick(event: MouseEvent) {
+  onClick(event: MouseEvent, selectedFlagItem:any) {
+    console.log('Método Chamado: onClick(), em FlagItem')
     console.log('Bandeira clicada: ', this.flag.name);
 
     this.isExpanded = !this.isExpanded;
-    
+    console.log('"isExpanded": utilizado em FlagItem, Modal aberto!')
     this.flagClicked.emit(this.flag);
     console.log('Evento flagClicked emitido para:', this.flag);
   }

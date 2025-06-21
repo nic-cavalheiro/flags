@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Flag } from '../models/flag-model';  // Importe a interface Flag
+import { Flag } from '../../models/flag-model';  // Importe a interface Flag
 
 @Injectable({
   providedIn: 'root'  // O serviço é registrado no root, tornando-o acessível em toda a aplicação

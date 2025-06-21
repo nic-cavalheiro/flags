@@ -95,7 +95,7 @@
   { "name": "Lesotho", "imageUrl": "https://flagcdn.com/ls.svg" },
   { "name": "Liberia", "imageUrl": "https://flagcdn.com/lr.svg" },
   { "name": "Libya", "imageUrl": "https://flagcdn.com/ly.svg" },
-  { "name": "Liechtenstein", "imageUrl": "https://flagcdn.com/lie.svg" },
+  { "name": "Liechtenstein", "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/47/Flag_of_Liechtenstein.svg"},
   { "name": "Lithuania", "imageUrl": "https://flagcdn.com/lt.svg" },
   { "name": "Luxembourg", "imageUrl": "https://flagcdn.com/lu.svg" },
   { "name": "Madagascar", "imageUrl": "https://flagcdn.com/mg.svg" },

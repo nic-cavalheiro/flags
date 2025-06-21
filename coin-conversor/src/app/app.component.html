@@ -1,6 +1,14 @@
-<app-header (themeChanged)="onThemeChanged($event)"></app-header>
+<app-header
+(flagSelected)="onFlagSelected($event)"
+(themeChanged)="onThemeChanged($event)"
+(closeModal)="flagList.closeModal()">
+</app-header>
 <main>
-   <!-- <app-flag-item [isDarkTheme]="isDarkTheme"></app-flag-item> -->
-   <app-flag-list [isDarkTheme]="isDarkTheme"></app-flag-list>
+   <app-flag-list
+   #flagList
+   [selectedFlag]="selectedFlag" [isDarkTheme]="isDarkTheme"
+   (closeModalEvent)="flagList.closeModal()">
+   </app-flag-list>
 </main>
-<app-footer></app-footer>
+<app-footer>
+</app-footer>

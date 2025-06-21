@@ -1,6 +1,7 @@
-<!-- <div class="flag-list">
-  <div *ngFor="let flag of flags; let i = index">
+<div class="flag-list">
+  <div *ngFor="let flag of filteredFlags; let i = index">
     <app-flag-item 
+    #flagItem
       [flag]="flag" 
       [isExpanded]="expandedFlagIndex === i"
       [isDarkTheme]="isDarkTheme"
@@ -8,76 +9,16 @@
     </app-flag-item>
   </div>
 
-  <app-modal *ngIf="isModalOpen" (close)="closeModal()" title="Informações da Bandeira">
-    
-    <h3>{{ selectedFlag?.name }}</h3>
-    <img [src]="selectedFlag?.imageUrl" [alt]="selectedFlag?.name" />
-    
-    <div class="wiki-conteudo" *ngIf="countryInfo">
-      <h4>{{ selectedFlag?.name }}:</h4>
-      <p *ngIf="countryInfo.extract">{{ countryInfo.extract }}</p>
-    </div>
-
-    <div class="wiki-economics-info" *ngIf="economicInfo">
-      <h4>Economia: </h4>
-      <p *ngIf="economicInfo.content">{{economicInfo.content}}</p>
-
-      <p *ngIf="!economicInfo.content">Informações econômicas não disponíveis.</p>
-    </div>
-
-    <p *ngIf="!countryInfo">Carregando informações...</p>
-  
-  </app-modal>
+  <app-modal *ngIf="isModalOpen" 
+  [selectedFlag]="selectedFlag" 
+  [countryInfo]="countryInfo"
+  [economicInfo]="economicInfo"
+  [isDataLoaded]="isDataLoaded" 
+  (close)="closeModal()">
+</app-modal>
 </div>
 
- -->
-
- <!-- <div class="flag-list">
-  <div *ngFor="let flag of flags; let i = index">
-    <app-flag-item 
-      [flag]="flag" 
-      [isExpanded]="expandedFlagIndex === i"
-      [isDarkTheme]="isDarkTheme"
-      (flagClicked)="onFlagClicked(flag)">
-    </app-flag-item>
-  </div>
-
-  <app-modal *ngIf="isModalOpen" (close)="closeModal()" title="Informações da Bandeira">
-    
-    <h3>{{ selectedFlag?.name }}</h3>
-    <img [src]="selectedFlag?.imageUrl" [alt]="selectedFlag?.name" />
-    
-
-    <div class="wiki-conteudo" *ngIf="countryInfo; else loadingCountryInfo">
-      <h4>{{ selectedFlag?.name }}:</h4>
-      <p *ngIf="countryInfo.extract">{{ countryInfo.extract }}</p>
-    </div>
-    <ng-template #loadingCountryInfo>
-      <p>Carregando informações...</p>
-    </ng-template>
-
-
-    <div class="wiki-economics-info" *ngIf="economicInfo !== null; else loadingEconomicInfo">
-      <h4>Economia:</h4>
-      <p *ngIf="economicInfo.content">{{ economicInfo.content }}</p>
-      <p *ngIf="!economicInfo.content">Informações econômicas não disponíveis.</p>
-    </div>
-    <ng-template #loadingEconomicInfo>
-      <p>Carregando informações econômicas...</p>
-    </ng-template>
-  </app-modal>
-</div> -->
-<div class="flag-list">
-  <div *ngFor="let flag of flags; let i = index">
-    <app-flag-item 
-      [flag]="flag" 
-      [isExpanded]="expandedFlagIndex === i"
-      [isDarkTheme]="isDarkTheme"
-      (flagClicked)="onFlagClicked(flag)">
-    </app-flag-item>
-  </div>
-
-  <app-modal *ngIf="isModalOpen" (close)="closeModal()" title="Informações da Bandeira">
+<!-- <app-modal *ngIf="isModalOpen" (close)="closeModal()" title="Informações da Bandeira">
     <h3>{{ selectedFlag?.name }}</h3>
     <img [src]="selectedFlag?.imageUrl" [alt]="selectedFlag?.name" />
 
@@ -94,9 +35,9 @@
        <p class = "loading-text">Carregando informações...</p>
        </div>
     <div class = "wiki-economics-info"  *ngIf="isDataLoaded">
-      <h4>Economia:</h4>
+      <h4>Economia Política:</h4>
       <p>{{ economicInfo?.content }}</p>
     </div>
-  </app-modal>
-</div>
+  </app-modal> 
+-->
 

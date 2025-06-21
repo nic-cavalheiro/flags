@@ -1,4 +1,4 @@
-<div class="flag-container" (click)="onClick($event)">
+<div class="flag-container" (click)="onClick($event, flag)">
   <img class="flag-image" [src]="flag.imageUrl" [alt]="flag.name"/>
 </div>
 <div>
@@ -6,8 +6,3 @@
   <div *ngIf="isExpanded">
     <p></p>
 </div>
-<!-- <app-modal *ngIf="isModalOpen" (closed)="closeModal()" title="Informações da Bandeira">
-  <h3>{{ selectedFlag?.name }}</h3>
-  <img [src]="selectedFlag?.imageUrl" [alt]="selectedFlag?.name" />
-  <p>Mais informações sobre a bandeira...</p>
-</app-modal> -->

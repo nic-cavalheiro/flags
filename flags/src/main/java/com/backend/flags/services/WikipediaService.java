@@ -46,15 +46,13 @@ public class WikipediaService {
             String title = page.path("title").asText("Título não disponível.");
             String extract = page.path("extract").asText(null);
 
-            // System.out.println("[3] Título: " + title);
-            // System.out.println("[4] Extract: " + extract);
-
             if (extract == null || extract.isEmpty()) {
                 System.out.println("[5] Extract vazio. Buscando redirecionamento...");
                 String redirectedTitle = fetchRedirectedTitle(formattedCountry);
 
                 if (redirectedTitle != null && !redirectedTitle.equalsIgnoreCase(country)) {
                     System.out.println("[6] Redirecionando para: " + redirectedTitle);
+                    
                     return getCountrySummary(redirectedTitle);
                 } else {
                     System.out.println("[7] Nenhum redirecionamento encontrado.");
@@ -63,6 +61,7 @@ public class WikipediaService {
             }
 
             return new WikipediaSummary(title, extract);
+        
         } catch (Exception e) {
             System.err.println("[8] Erro ao obter dados da Wikipedia: " + e.getMessage());
             return new WikipediaSummary("Erro", "Não foi possível obter informações.");

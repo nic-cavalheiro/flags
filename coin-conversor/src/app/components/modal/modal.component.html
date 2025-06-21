@@ -1,8 +1,53 @@
 
+<!-- modal.component.html -->
 <div class="modal-overlay" (click)="onClose()">
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <button class="close-button" (click)="$event.stopPropagation(); onClose()">X</button>
-    <ng-content></ng-content> <!-- Conteúdo passado do componente pai -->
+    <button class="close-button" (click)="onClose()">X</button>
+    <!-- Conteúdo do Modal -->
+    <h3>{{ selectedFlag?.name }}</h3>
+    <img [src]="selectedFlag?.imageUrl" [alt]="selectedFlag?.name" />
+    <div class="wiki-conteudo" *ngIf="!isDataLoaded">
+      <p class="loading-text">Carregando informações...</p>
+    </div>
+    <div class="wiki-conteudo" *ngIf="isDataLoaded">
+      <h4>{{ countryInfo?.title }}</h4>
+      <p>{{ countryInfo?.extract }}</p>
+    </div>
+    <div class="wiki-economics-info" *ngIf="!isDataLoaded">
+      <p class="loading-text">Carregando informações...</p>
+    </div>
+    <div class="wiki-economics-info" *ngIf="isDataLoaded">
+      <h4>Economia Política:</h4>
+      <p>{{ economicInfo?.content }}</p>
+    </div>
   </div>
 </div>
 
+<!--
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="$event.stopPropagation(); onClose()">X</button>
+    <app-modal *ngIf="isModalOpen" (closeModalEvent)="flagList.closeModal()" title="Informações da Bandeira">
+      <h3>{{ selectedFlag?.name }}</h3>
+      <img [src]="selectedFlag?.imageUrl" [alt]="selectedFlag?.name" />
+  
+      <div class="wiki-conteudo" *ngIf="!isDataLoaded">
+        <p class="loading-text">Carregando informações...</p>
+      </div>
+  
+      <div class="wiki-conteudo" *ngIf="isDataLoaded">
+        <h4>{{ countryInfo?.title }}</h4>
+        <p>{{ countryInfo?.extract }}</p>
+      </div>
+  
+      <div class="wiki-economics-info" *ngIf="!isDataLoaded">
+         <p class = "loading-text">Carregando informações...</p>
+         </div>
+      <div class = "wiki-economics-info"  *ngIf="isDataLoaded">
+        <h4>Economia Política:</h4>
+        <p>{{ economicInfo?.content }}</p>
+      </div>
+    </app-modal>
+    </div>
+  </div>
+-->

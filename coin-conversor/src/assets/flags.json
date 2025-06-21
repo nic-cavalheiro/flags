@@ -1,4 +1,4 @@
-[
+/*[
   { "name": "Afghanistan", "imageUrl": "https://flagcdn.com/af.svg" },
   { "name": "Albania", "imageUrl": "https://flagcdn.com/al.svg" },
   { "name": "Algeria", "imageUrl": "https://flagcdn.com/dz.svg" },
@@ -194,3 +194,4 @@
   { "name": "Zambia", "imageUrl": "https://flagcdn.com/zm.svg" },
   { "name": "Zimbabwe", "imageUrl": "https://flagcdn.com/zw.svg" }
 ]
+*/
