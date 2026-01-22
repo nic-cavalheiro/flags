@@ -1,53 +1,90 @@
 
-<!-- modal.component.html -->
 <div class="modal-overlay" (click)="onClose()">
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <button class="close-button" (click)="onClose()">X</button>
-    <!-- Conteúdo do Modal -->
-    <h3>{{ selectedFlag?.name }}</h3>
-    <img [src]="selectedFlag?.imageUrl" [alt]="selectedFlag?.name" />
-    <div class="wiki-conteudo" *ngIf="!isDataLoaded">
-      <p class="loading-text">Carregando informações...</p>
-    </div>
-    <div class="wiki-conteudo" *ngIf="isDataLoaded">
-      <h4>{{ countryInfo?.title }}</h4>
-      <p>{{ countryInfo?.extract }}</p>
-    </div>
-    <div class="wiki-economics-info" *ngIf="!isDataLoaded">
-      <p class="loading-text">Carregando informações...</p>
-    </div>
-    <div class="wiki-economics-info" *ngIf="isDataLoaded">
-      <h4>Economia Política:</h4>
-      <p>{{ economicInfo?.content }}</p>
-    </div>
-  </div>
-</div>
+    <button class="close-button" (click)="onClose()">×</button>
 
-<!--
-<div class="modal-overlay" (click)="onClose()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <button class="close-button" (click)="$event.stopPropagation(); onClose()">X</button>
-    <app-modal *ngIf="isModalOpen" (closeModalEvent)="flagList.closeModal()" title="Informações da Bandeira">
-      <h3>{{ selectedFlag?.name }}</h3>
-      <img [src]="selectedFlag?.imageUrl" [alt]="selectedFlag?.name" />
-  
-      <div class="wiki-conteudo" *ngIf="!isDataLoaded">
-        <p class="loading-text">Carregando informações...</p>
+    @if (activeView === 'mural') {
+      <div class="mural-wrapper fade-in">
+        <h3 class="modal-title">{{ selectedFlag?.name }}</h3>
+
+        <div class="mural-grid">
+          
+          <div class="cell banner">
+            <img [src]="selectedFlag?.imageUrl" class="reveal-anim" />
+          </div>
+
+          <div class="cell wiki card-glass slide-right-anim clickable" (click)="openSubPage('wiki')">
+            <h4>História e Cultura ↗</h4>
+            <div class="scroll-area">
+              <p>{{ countryInfo?.extract }}</p>
+            </div>
+          </div>
+
+          <div class="cell map card-glass slide-up-anim clickable" (click)="openSubPage('map')">
+            <h4>Geografia Estática ↗</h4>
+            <div class="content-placeholder">
+              <div class="map-mock">MAPA</div>
+            </div>
+          </div>
+
+          <div class="cell arts card-glass slide-up-anim clickable" (click)="openSubPage('arts')">
+            <h4>Representação Artística ↗</h4>
+            <div class="art-grid">
+              <div class="art-box"></div>
+              <div class="art-box"></div>
+            </div>
+          </div>
+
+          <div class="cell economy card-glass slide-up-anim clickable" (click)="openSubPage('economy')">
+            <h4>Economia Política ↗</h4>
+            <div class="scroll-area">
+              <p>{{ economicInfo?.content }}</p>
+            </div>
+          </div>
+
+        </div>
       </div>
-  
-      <div class="wiki-conteudo" *ngIf="isDataLoaded">
-        <h4>{{ countryInfo?.title }}</h4>
-        <p>{{ countryInfo?.extract }}</p>
-      </div>
-  
-      <div class="wiki-economics-info" *ngIf="!isDataLoaded">
-         <p class = "loading-text">Carregando informações...</p>
-         </div>
-      <div class = "wiki-economics-info"  *ngIf="isDataLoaded">
-        <h4>Economia Política:</h4>
-        <p>{{ economicInfo?.content }}</p>
-      </div>
-    </app-modal>
+} @else {
+  <div class="view-subpage slide-up-anim">
+    <button class="back-btn" (click)="backToMural()">← Voltar ao Mural</button>
+    
+    <div class="expanded-content">
+      
+      @switch (activeView) {
+        
+        @case ('wiki') {
+          <h1>{{ countryInfo?.title || 'História' }}</h1>
+          <div class="scroll-area-expanded">
+            <p>{{ countryInfo?.extract }}</p>
+          </div>
+        }
+
+        @case ('economy') {
+          <h1>Economia Política</h1>
+          <div class="scroll-area-expanded">
+            <p>{{ economicInfo?.content }}</p>
+            <div class="info-box" *ngIf="economicInfo?.gdp">
+               <strong>PIB:</strong> {{ economicInfo.gdp }}
+            </div>
+          </div>
+        }
+
+        @case ('map') {
+           <h1>Geografia</h1>
+           <div class="map-expanded-container">
+              <div class="map-placeholder">MAPA INTERATIVO AQUI</div>
+           </div>
+        }
+
+        @case ('arts') {
+           <h1>Galeria de Artes</h1>
+           <div class="art-gallery-expanded">
+              <div class="art-item"></div>
+              <div class="art-item"></div>
+              <div class="art-item"></div>
+           </div>
+        }
+      }
     </div>
   </div>
--->
+}
