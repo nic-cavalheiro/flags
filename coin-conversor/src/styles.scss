@@ -1,14 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  
-  }
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
-  
+}
+
+
 .dark-theme {
-  background-color: #363636; 
+  background-color: #363636;
   // .flag-name{
   //   color: #ffffff;
   // }
@@ -18,8 +19,9 @@ body {
   overflow: hidden !important;
   height: 100vh;
   /* Opcional: evita que o layout "pule" quando a scrollbar some */
-  padding-right: 0px; 
+  padding-right: 0px;
 }
+
 // .theme-toggle {
 //   background: linear-gradient(135deg, #4a4a4a, #333); /* Gradiente de fundo */
 //   margin-top: 1px;
@@ -84,6 +86,7 @@ body {
 .expanded {
   background: #e0f7fa; // Cor diferente quando expandido
 }
+
 .icon {
   width: 50px;
   height: auto;

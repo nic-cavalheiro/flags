@@ -20,4 +20,15 @@ export class WikipediaService {
   getEconomicInfo(country: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${encodeURIComponent(country)}/economics`);
   }
+
+  // AI generated methods
+  // Método para obter informações geográficas do país
+  getGeographyInfo(country: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${encodeURIComponent(country)}/geography`);
+  }
+
+  // Método para obter informações culturais/artísticas do país
+  getArtInfo(country: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${encodeURIComponent(country)}/art`);
+  }
 }

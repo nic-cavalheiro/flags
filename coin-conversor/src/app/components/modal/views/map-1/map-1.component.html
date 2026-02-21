@@ -1,1 +1,17 @@
-<p>map-1 works!</p>
+<h2 class="modal-title">Geografia Detalhada</h2>
+
+<div class="map-expanded-container">
+
+  <div class="map-placeholder">
+    <!-- AI generated content -->
+    @if (data?.mapUrl) {
+    <img [src]="data.mapUrl" alt="Mapa de {{ data.country }}" class="img-cover reveal-anim"
+      style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;">
+    } @else {
+    <p style="padding: 1rem; color: #f0f0f0; line-height: 1.6;">
+      MAPA INTERATIVO CARREGANDO OU INDISPONÍVEL...
+    </p>
+    }
+  </div>
+
+</div>

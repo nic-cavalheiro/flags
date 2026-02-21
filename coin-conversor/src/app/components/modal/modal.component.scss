@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
 
-// Variáveis de Estilo
+// --- VARIÁVEIS ---
 $accent: #ff3b3f;
 $glass: rgba(255, 255, 255, 0.03);
 $glass-hover: rgba(255, 255, 255, 0.06);
 $border: rgba(255, 255, 255, 0.08);
+$bg-dark: #0a0a0b;
+$bg-mock: #151517;
 
+// --- ESTRUTURA BASE DO MODAL ---
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -19,231 +22,390 @@ $border: rgba(255, 255, 255, 0.08);
 }
 
 .modal-content {
-  position: relative;
-  background: #0a0a0b;
+  position: relative !important;
+  background: $bg-dark;
   color: #fff;
-  width: 98vw;
-  max-width: 1600px; 
+  width: 96vw;
+  max-width: 1800px;
   height: 90vh;
   border-radius: 32px;
-  padding: 40px;
+  padding: 16px 24px; // Reduzido drasticamente para mais espaço útil interno
   border: 1px solid $border;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  
-  overflow-y: auto; 
-  overflow-x: hidden;
+  overflow: visible; // Permite o vazamento sem clipping para animações 3D de breakout
+  display: flex;
+  flex-direction: column;
+}
 
+.modal-title {
+  font-size: 2.1rem; // Reduzido (era 2.5rem)
+  margin: 0 0 10px 10px; // Quase sem margem inferior
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  background: linear-gradient(90deg, #fff, #555);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  flex-shrink: 0;
+}
+
+// --- O GRID BENTO (MURAL) ---
+.mural-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; // O scroll fica AQUI
+  padding-right: 10px;
+
+  // Custom Scrollbar
   scrollbar-width: thin;
   scrollbar-color: $accent transparent;
-  &::-webkit-scrollbar { width: 6px; }
-  &::-webkit-scrollbar-thumb { background: $accent; border-radius: 10px; }
 
-  // GRID DE 12 COLUNAS (O container do mural deve usar esta classe)
-  .mural-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-auto-rows: min-content;
-    gap: 20px;
-    width: 100%;
+  &::-webkit-scrollbar {
+    width: 6px;
   }
 
-  .modal-title {
-    grid-column: span 12;
-    font-size: 3.5rem;
-    margin: 0 0 20px 0;
-    font-weight: 800;
-    letter-spacing: -3px;
-    background: linear-gradient(90deg, #fff, #555);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  &::-webkit-scrollbar-thumb {
+    background: $accent;
+    border-radius: 10px;
   }
+}
 
-  // Célula Base (Módulos)
-  .cell {
-    background: $glass;
-    border-radius: 24px;
-    border: 1px solid $border;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; 
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.mural-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); // 12 Colunas exatas
+  grid-auto-rows: min-content; // CRUCIAL: Mantém a altura compacta dos blocos
+  gap: 20px;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+// --- CÉLULAS (ESTILO VIDRO) ---
+.cell,
+.card-glass {
+  background: $glass;
+  border-radius: 24px;
+  border: 1px solid $border;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* AI generated: Added backdrop-filter for enhanced glassmorphism and subtle shadow */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &.clickable {
     cursor: pointer;
 
     &:hover {
-      background: $glass-hover;
-      border-color: rgba($accent, 0.5);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    }
+      /* AI generated: Enhanced hover effects for elegance and beauty */
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba($accent, 0.6);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.05);
 
-    h4 {
-      color: $accent;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-      letter-spacing: 1.5px;
-      font-weight: 800;
-    }
-
-    .scroll-area {
-      flex: 1;
-      overflow-y: auto;
-      max-height: 300px;
-      padding-right: 10px;
-      
-      &::-webkit-scrollbar { width: 4px; }
-      &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-
-      p {
-        line-height: 1.8;
-        color: #a1a1aa;
-        margin: 0;
-        font-size: 1rem;
-        text-align: justify;
+      h4 {
+        color: lighten($accent, 15%);
+        text-shadow: 0 0 8px rgba($accent, 0.4);
       }
     }
   }
 
-  // --- POSICIONAMENTO ---
-  .banner { grid-column: span 8; height: 450px; padding: 0; img { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; } }
-  .wiki { grid-column: span 4; height: 450px; }
-  .map { 
-    grid-column: span 3; height: 350px;
-    .map-mock { flex: 1; background: #151517; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #333; font-weight: 800; }
+  h4 {
+    color: $accent;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 1.5px;
+    font-weight: 800;
+    transition: all 0.3s;
   }
-  .arts {
-    grid-column: span 4; height: 350px;
-    .art-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; height: 100%; .art-box { background: #151517; border-radius: 16px; border: 1px solid rgba(255,255,255,0.03); } }
-  }
-  .economy { grid-column: span 5; height: 350px; }
 }
 
-// --- CONFIGURAÇÃO DE SUBPÁGINA (EXPANDIDA) ---
-.view-subpage {
+
+// --- RESTAURANDO O LAYOUT DOS RETÂNGULOS (SPAN & HEIGHT) ---
+// Estas classes garantem que o grid fique exatamente igual ao seu original
+
+// Banner (Span 8 / Altura 450px)
+.span-8,
+.banner {
+  grid-column: span 8;
+}
+
+// Wiki & Artes (Span 4 / Altura varia)
+.span-4,
+.wiki,
+.arts {
+  grid-column: span 4;
+}
+
+// Custom Spans needed for the layout logic
+.span-6 {
+  grid-column: span 6;
+}
+
+.span-7 {
+  grid-column: span 7;
+}
+
+// Mapa (Span 3)
+.span-3,
+.map {
+  grid-column: span 3;
+}
+
+// Economia (Span 5)
+.span-5,
+.economy {
+  grid-column: span 5;
+}
+
+// Alturas Fixas
+.h-500 {
+  height: 500px; // Altura gigante para a linha superior (Extravagante)
+}
+
+.h-450 {
+  height: 450px;
+}
+
+.h-350 {
+  height: 350px;
+}
+
+// Utilitários Específicos
+.no-padding {
+  padding: 0 !important;
+}
+
+.img-cover {
   width: 100%;
-  height: 100%; // Ocupa toda a altura do modal
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+  display: block;
+}
+
+// --- CONTEÚDO INTERNO DAS CÉLULAS (THUMBNAILS) ---
+// Trazido de volta para o Mural funcionar visualmente
+
+// 1. Área de Scroll Pequena (Wiki/Economia)
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: $accent transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+
+  /* AI generated: increased line height and slight color adjustment for better readability */
+  p {
+    line-height: 1.9;
+    color: #b3b3b8;
+    margin: 0;
+    font-size: 1.05rem;
+    text-align: justify;
+    font-weight: 400;
+  }
+}
+
+// 2. Mock do Mapa (Thumb)
+.content-placeholder,
+.mock-center {
+  flex: 1;
+  background: $bg-mock;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-mock {
+  color: #333;
+  font-weight: 800;
+}
+
+// 3. Grid de Artes (Thumb)
+.art-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  height: 100%;
+
+  .art-box {
+    background: $bg-mock;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// --- ÁREA EXPANDIDA (SUBPÁGINAS) ---
+.view-subpage,
+.view-container {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  padding-top: 10px;
+  overflow: visible;
+  padding-top: 0; // Removido para apertar o topo
+  min-height: 0; // CRITICO: Força o container flexível a recalcular limites, reativando barras de rolagem internas
+  position: static !important;
+}
 
-  // Botão Voltar
-  .back-btn {
-    align-self: flex-start;
-    background: $glass;
-    border: 1px solid $border;
-    color: #fff;
-    padding: 10px 24px;
-    border-radius: 12px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    font-weight: 600;
-    transition: all 0.3s;
-    &:hover { background: $accent; border-color: $accent; }
+.expanded-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  min-height: 0; // CRITICO
+  position: static !important;
+}
+
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  background: $bg-dark;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s;
+  padding: 0;
+
+  &:hover {
+    background: $accent;
+    transform: scale(1.1);
+    border-color: $accent;
   }
+}
 
-  // Container que segura o conteúdo e permite ele crescer
-  .expanded-content {
-    display: flex;
-    flex-direction: column;
-    flex: 1; // Ocupa o espaço restante
-    overflow: hidden; // Impede que vaze para fora
-  }
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  background: $bg-dark;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  font-weight: 900;
+  font-size: 1.5rem;
+  transition: all 0.3s;
 
-  h1 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin: 0 0 20px 0;
-    letter-spacing: -2px;
-    color: #fff;
-  }
-
-  // --- AQUI ESTÁ A MÁGICA DA ROLAGEM DO TEXTO DA API ---
-  .scroll-area-expanded {
-    flex: 1; // Ocupa todo o espaço vertical disponível
-    overflow-y: auto; // Cria a barra de rolagem SÓ para o texto
-    padding-right: 20px;
-    
-    // Customização da barra de rolagem
-    scrollbar-width: thin;
-    scrollbar-color: $accent transparent;
-    &::-webkit-scrollbar { width: 6px; }
-    &::-webkit-scrollbar-thumb { background: $accent; border-radius: 10px; }
-
-    p {
-      font-size: 1.25rem; // Letra maior para leitura confortável
-      line-height: 1.8;
-      color: #d4d4d8;
-      text-align: justify;
-      margin-bottom: 30px;
-      white-space: pre-line; // Respeita as quebras de linha da API
-    }
-  }
-
-  // Estilo para a Galeria de Artes (quando expandida)
-  .art-gallery-expanded {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    overflow-y: auto;
-    padding-right: 10px;
-    
-    .art-item {
-      height: 200px;
-      background: #151517;
-      border-radius: 16px;
-      border: 1px solid $border;
-    }
-  }
-
-  // Estilo para o Mapa (quando expandido)
-  .map-expanded-container {
-    flex: 1;
-    background: #151517;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #555;
-    font-weight: bold;
-    min-height: 400px;
+  &:hover {
+    background: $accent;
+    color: white;
+    transform: rotate(90deg) scale(1.1);
+    border-color: $accent;
   }
 }
 
 // --- ANIMAÇÕES ---
-.reveal-anim { animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1); }
-.slide-right-anim { animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.slide-up-anim { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.fade-in { animation: fadeIn 0.5s ease-out; }
-
-@keyframes reveal { from { clip-path: inset(0 100% 0 0); transform: scale(1.05); } to { clip-path: inset(0 0 0 0); transform: scale(1); } }
-@keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-.close-button {
-  position: absolute;
-  top: 35px;
-  right: 35px;
-  background: white;
-  border: none;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 1000;
-  font-weight: 900;
-  transition: all 0.3s;
-  &:hover { background: $accent; color: white; transform: rotate(90deg) scale(1.1); }
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
 }
 
-@media (max-width: 1000px) {
-  .modal-content {
-    padding: 20px;
-    .mural-grid { grid-template-columns: 1fr; }
-    .cell, .banner { grid-column: span 1 !important; height: auto !important; min-height: 300px; }
-    .modal-title { font-size: 2.2rem; }
+.reveal-anim {
+  animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-right-anim {
+  animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.slide-up-anim {
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+    transform: scale(1.05);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+    transform: scale(1);
   }
 }
 
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+// --- RESPONSIVIDADE ---
+@media (max-width: 1000px) {
+  .modal-content {
+    padding: 20px;
+  }
+
+  .mural-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Vira coluna no mobile
+  .cell {
+    grid-column: span 1 !important;
+    height: auto !important;
+    min-height: 300px;
+  }
+
+  .modal-title {
+    font-size: 2.2rem;
+  }
+}

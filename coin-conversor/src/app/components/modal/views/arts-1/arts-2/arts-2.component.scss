@@ -1,0 +1,175 @@
+.fade-in {
+    animation: fadeInOverlay 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.fullscreen-overlay {
+    position: absolute;
+    // Compensa o padding de 16px 24px do .modal-content-pai para cobrir EXATAMENTE a borda física total:
+    top: -16px;
+    bottom: -16px;
+    left: -24px;
+    right: -24px;
+    z-index: 10000;
+    background: rgba(10, 10, 11, 0.95);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-radius: 32px; // Match exactly the .modal-content border-radius
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    .close-btn {
+        position: absolute;
+        top: 36px; // 20px (target) + 16px (offset da redoma)
+        right: 64px; // 40px (target) + 24px (offset da redoma)
+        background: white;
+        border: none;
+        color: #0a0a0b;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        transition: all 0.3s;
+
+        &:hover {
+            background: #ff3b3f;
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+        }
+    }
+
+    .fullscreen-card {
+        width: 100%;
+        max-width: 1250px;
+        // Proporção alargada mas não ultrawide (ex: 1.6:1) para maior imersão
+        aspect-ratio: 1.6 / 1;
+        max-height: 85vh; // Garante que nunca exceda a altura de telas curtas
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: row;
+        background: rgba(15, 15, 20, 0.75);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.05);
+
+        &.basic {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            backdrop-filter: none;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .image-section {
+        flex: 2.8; // Aumentado significativamente o peso da imagem (antes era 2)
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+
+        .fullscreen-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8));
+        }
+    }
+
+    .details-section {
+        flex: 1; // Mantém flex 1, o que força a coluna direita a ser muito menor perante o flex 2.8 da esquerda.
+        min-width: 320px; // Evita que esmague demais textos que precisem de leitura clara.
+        background: rgba(255, 255, 255, 0.02);
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 60px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .details-header {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+            h2 {
+                font-size: 2.8rem;
+                font-weight: 800;
+                color: #ffffff;
+                margin: 0 0 16px 0;
+                letter-spacing: -1px;
+                line-height: 1.1;
+            }
+
+            h3 {
+                font-size: 1.4rem;
+                color: #94a3b8;
+                margin: 0;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+        }
+
+        .details-body {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            .info-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .label {
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                color: #64748b;
+                margin-bottom: 8px;
+                font-weight: 700;
+            }
+
+            .value {
+                font-size: 1.3rem;
+                color: #e2e8f0;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+
+                &.style {
+                    color: #93c5fd;
+                }
+
+                &.period {
+                    color: #d8b4fe;
+                }
+
+                &.city {
+                    color: #f8fafc;
+                }
+            }
+        }
+    }
+}

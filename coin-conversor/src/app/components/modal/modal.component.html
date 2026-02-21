@@ -1,90 +1,105 @@
-
 <div class="modal-overlay" (click)="onClose()">
   <div class="modal-content" (click)="$event.stopPropagation()">
+
+    @if (!isChildFullscreen) {
     <button class="close-button" (click)="onClose()">×</button>
+    }
 
     @if (activeView === 'mural') {
-      <div class="mural-wrapper fade-in">
-        <h3 class="modal-title">{{ selectedFlag?.name }}</h3>
 
-        <div class="mural-grid">
-          
-          <div class="cell banner">
-            <img [src]="selectedFlag?.imageUrl" class="reveal-anim" />
-          </div>
+    <div class="mural-wrapper fade-in">
 
-          <div class="cell wiki card-glass slide-right-anim clickable" (click)="openSubPage('wiki')">
-            <h4>História e Cultura ↗</h4>
-            <div class="scroll-area">
-              <p>{{ countryInfo?.extract }}</p>
-            </div>
-          </div>
+      <h3 class="modal-title">{{ selectedFlag?.name }}</h3>
 
-          <div class="cell map card-glass slide-up-anim clickable" (click)="openSubPage('map')">
-            <h4>Geografia Estática ↗</h4>
-            <div class="content-placeholder">
-              <div class="map-mock">MAPA</div>
-            </div>
-          </div>
+      <div class="mural-grid">
 
-          <div class="cell arts card-glass slide-up-anim clickable" (click)="openSubPage('arts')">
-            <h4>Representação Artística ↗</h4>
-            <div class="art-grid">
-              <div class="art-box"></div>
-              <div class="art-box"></div>
-            </div>
-          </div>
-
-          <div class="cell economy card-glass slide-up-anim clickable" (click)="openSubPage('economy')">
-            <h4>Economia Política ↗</h4>
-            <div class="scroll-area">
-              <p>{{ economicInfo?.content }}</p>
-            </div>
-          </div>
-
+        <!-- Linha 1: Flag (Span 5), Mapa (Span 3), Artes (Span 4). Total 12. Altura 450px para exuberância -->
+        <div class="cell span-5 h-450 no-padding"
+          style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #000;">
+          <!-- Fundo borrado mantendo a cor nativa sem as bordas pretas -->
+          <img [src]="selectedFlag?.imageUrl" class="img-cover reveal-anim"
+            style="position: absolute; width: 100%; height: 100%; filter: blur(30px) brightness(0.4); transform: scale(1.1); z-index: 1;" />
+          <!-- Imagem contida com as reais proporções da bandeira (Aspecto Retangular 1.6:1 - Perfeito) -->
+          <img [src]="selectedFlag?.imageUrl" class="reveal-anim"
+            style="max-width: 100%; max-height: 100%; object-fit: contain; z-index: 2; position: relative; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" />
         </div>
-      </div>
-} @else {
-  <div class="view-subpage slide-up-anim">
-    <button class="back-btn" (click)="backToMural()">← Voltar ao Mural</button>
-    
-    <div class="expanded-content">
-      
-      @switch (activeView) {
-        
-        @case ('wiki') {
-          <h1>{{ countryInfo?.title || 'História' }}</h1>
-          <div class="scroll-area-expanded">
-            <p>{{ countryInfo?.extract }}</p>
-          </div>
-        }
 
-        @case ('economy') {
-          <h1>Economia Política</h1>
-          <div class="scroll-area-expanded">
-            <p>{{ economicInfo?.content }}</p>
-            <div class="info-box" *ngIf="economicInfo?.gdp">
-               <strong>PIB:</strong> {{ economicInfo.gdp }}
+        <div class="cell span-3 h-450 card-glass slide-up-anim clickable no-padding" (click)="navigateTo('map-1')">
+          <!-- Globo Full-Bleed sem padding e sem titulo H4 -->
+          <div class="content-placeholder mock-center"
+            style="padding: 0; width: 100%; height: 100%; border-radius: 24px; overflow: hidden; background: rgba(0,0,0,0.1);">
+            @if (geographyInfo?.globeUrl) {
+            <img [src]="geographyInfo.globeUrl" class="img-cover reveal-anim"
+              style="width: 100%; height: 100%; object-fit: cover;">
+            } @else {
+            <div class="map-mock"
+              style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; color: #aaa; font-size: 0.9rem;">
+              Globo Indisponível
+            </div>
+            }
+          </div>
+        </div>
+
+        <div class="cell span-4 h-450 card-glass slide-up-anim clickable no-padding" (click)="navigateTo('arts-1')"
+          style="position: relative;">
+          <!-- Arte Showcase Full-Bleed sem titulo H4 absoluto -->
+          <div class="art-showcase" *ngIf="artInfo?.artworks?.length; else noArtTpl"
+            style="width: 100%; height: 100%; position: relative; background: #000; overflow: hidden; border-radius: 24px;">
+            <img [src]="artInfo.artworks[currentArtIndex].imageUrl" [alt]="artInfo.artworks[currentArtIndex].title"
+              style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.8s ease-in-out;"
+              class="carousel-img fade-in">
+            <div class="art-overlay"
+              style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); z-index: 5;">
+              <p
+                style="margin: 0 0 8px 0; font-size: 1.1rem; color: white; font-weight: 800; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                {{ artInfo.artworks[currentArtIndex].title }}
+              </p>
+              <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1;">{{ artInfo.artworks[currentArtIndex].author ||
+                'Mestre Desconhecido' }}</p>
             </div>
           </div>
-        }
+          <ng-template #noArtTpl>
+            <div class="art-grid"
+              style="pointer-events: none; opacity: 0.5; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border: 1px dashed rgba(255,255,255,0.2); border-radius: 24px;">
+              <p style="margin: 0; font-size: 0.8rem; color: #ccc;">Nenhuma obra catalogada.</p>
+            </div>
+          </ng-template>
+        </div>
 
-        @case ('map') {
-           <h1>Geografia</h1>
-           <div class="map-expanded-container">
-              <div class="map-placeholder">MAPA INTERATIVO AQUI</div>
-           </div>
-        }
+        <!-- Linha 2: História (Span 7) e Economia (Span 5). Total 12. Altura 350px -->
+        <div class="cell span-7 h-350 card-glass slide-right-anim clickable" (click)="navigateTo('wiki-1')">
+          <h4>História e Cultura ↗</h4>
+          <div class="scroll-area">
+            <p>{{ countryInfo?.extract | slice:0:300 }}...</p>
+          </div>
+        </div>
 
-        @case ('arts') {
-           <h1>Galeria de Artes</h1>
-           <div class="art-gallery-expanded">
-              <div class="art-item"></div>
-              <div class="art-item"></div>
-              <div class="art-item"></div>
-           </div>
-        }
-      }
+        <div class="cell span-5 h-350 card-glass slide-up-anim clickable" (click)="navigateTo('economy-1')">
+          <h4>Economia Política ↗</h4>
+          <div class="scroll-area">
+            <p>{{ economicInfo?.content | slice:0:200 }}...</p>
+          </div>
+        </div>
+
+      </div>
     </div>
+
+    }
+    @else {
+    <button class="back-btn fade-in" (click)="backToMural()" title="Voltar ao Mural">←</button>
+    <div class="view-subpage slide-up-anim">
+
+      <div class="expanded-content">
+        @switch (activeView) {
+        @case ('wiki-1') { <app-wiki-1 [data]="countryInfo"></app-wiki-1> }
+        @case ('economy-1') { <app-economy-1 [data]="economicInfo"></app-economy-1> }
+        @case ('map-1') { <app-map-1 [data]="geographyInfo"></app-map-1> }
+        @case ('arts-1') { <app-arts-1 [flagData]="selectedFlag" [data]="artInfo"
+          (fullscreenToggled)="onFullscreenToggled($event)"></app-arts-1> }
+        }
+      </div>
+    </div>
+    }
+
   </div>
-}
+</div>

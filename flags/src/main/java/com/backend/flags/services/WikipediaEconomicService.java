@@ -21,7 +21,8 @@ public class WikipediaEconomicService {
 
     private static final String WIKIPEDIA_API_URL = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=true&titles=";
 
-    public WikipediaEconomicService(RestTemplate restTemplate, ObjectMapper objectMapper, WikipediaService wikipediaService) {
+    public WikipediaEconomicService(RestTemplate restTemplate, ObjectMapper objectMapper,
+            WikipediaService wikipediaService) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
         this.wikipediaService = wikipediaService;
@@ -31,8 +32,6 @@ public class WikipediaEconomicService {
         String formattedCountry = URLEncoder.encode(country, StandardCharsets.UTF_8).replace("+", "%20");
         URI uri = URI.create(WIKIPEDIA_API_URL + formattedCountry + "&format=json");
 
-        System.out.println("[0] URL de api/wikipedia/{country}/economics montada: " + uri);
-
         try {
             String jsonResponse = restTemplate.getForObject(uri, String.class);
 
@@ -41,7 +40,6 @@ public class WikipediaEconomicService {
             JsonNode pages = root.path("query").path("pages");
 
             if (!pages.fieldNames().hasNext()) {
-                System.out.println("[2] Nenhuma página encontrada.");
                 return new WikiEconomicsInfo(country, "section", "Conteúdo não disponível.");
             }
 
@@ -51,14 +49,12 @@ public class WikipediaEconomicService {
             String extract = page.path("extract").asText(null);
 
             if (extract == null || extract.isEmpty()) {
-                System.out.println("[5] Extract de getEconomicInfo vazio. Buscando redirecionamento...");
                 String redirectedTitle = wikipediaService.fetchRedirectedTitle(formattedCountry);
 
                 if (redirectedTitle != null && !redirectedTitle.equalsIgnoreCase(country)) {
-                    System.out.println("[6] Redirecionando para: " + redirectedTitle);
-                    return this.getCountryEconomicInfo(redirectedTitle);  // Usando `this` em vez de `wikipediaEconomicService`
+                    return this.getCountryEconomicInfo(redirectedTitle); // Usando `this` em vez de
+                                                                         // `wikipediaEconomicService`
                 } else {
-                    System.out.println("[7] Nenhum redirecionamento encontrado.");
                     return new WikiEconomicsInfo(title, "section", "Conteúdo econômico não disponível.");
                 }
             }
@@ -76,37 +72,33 @@ public class WikipediaEconomicService {
         // Normaliza quebras de linha
         String normalizedText = text.replaceAll("\\r\\n?", "\n");
         String[] lines = normalizedText.split("\n");
-    
+
         StringBuilder economicContent = new StringBuilder();
         boolean isInEconomicSection = false;
-    
+
         for (String line : lines) {
             String trimmedLine = line.trim();
             String upperLine = trimmedLine.toUpperCase();
-    
+
             // Início da seção econômica ou política
             if (upperLine.contains("ECONOMY") || upperLine.contains("ECONOMIC") ||
-                upperLine.contains("POLITICS") || upperLine.contains("POLITICAL")) {
+                    upperLine.contains("POLITICS") || upperLine.contains("POLITICAL")) {
                 isInEconomicSection = true;
             }
-    
+
             // Fim da seção: encontrou um novo título do tipo == Title ==
             else if (isInEconomicSection && trimmedLine.matches("^==+\\s?.+\\s?==+$")) {
                 break;
             }
-    
+
             // Adiciona linha se estamos dentro da seção desejada
             if (isInEconomicSection) {
                 economicContent.append(line).append("\n");
             }
         }
-    
+
         String result = economicContent.toString().trim();
         return result.isEmpty() ? "Informação econômica não encontrada." : result;
     }
-    
-    
+
 }
-
-
-

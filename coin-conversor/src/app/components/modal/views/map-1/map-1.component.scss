@@ -1,0 +1,16 @@
+@import '../../modal.component.scss';
+
+:host { height: 100%; display: flex; flex-direction: column; }
+
+.map-expanded-container {
+  flex: 1;
+  background: $bg-mock;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-weight: 800;
+  font-size: 2rem;
+  border: 1px dashed $border;
+}

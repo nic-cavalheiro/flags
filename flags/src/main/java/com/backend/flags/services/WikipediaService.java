@@ -31,17 +31,14 @@ public class WikipediaService {
         String formattedCountry = URLEncoder.encode(country, StandardCharsets.UTF_8).replace("+", "%20");
         URI uri = URI.create(WIKIPEDIA_API_URL + formattedCountry + "&format=json");
 
-        System.out.println("[0] URL montada: " + uri);
-
         try {
             String jsonResponse = restTemplate.getForObject(uri, String.class);
-            //System.out.println("[1] Resposta da API com URL: "+ uri + jsonResponse);
+            // System.out.println("[1] Resposta da API com URL: "+ uri + jsonResponse);
 
             JsonNode root = objectMapper.readTree(jsonResponse);
             JsonNode pages = root.path("query").path("pages");
 
             if (!pages.fieldNames().hasNext()) {
-                System.out.println("[2] Nenhuma página encontrada.");
                 return new WikipediaSummary(country, "Conteúdo não disponível.");
             }
 
@@ -51,21 +48,18 @@ public class WikipediaService {
             String extract = page.path("extract").asText(null);
 
             if (extract == null || extract.isEmpty()) {
-                System.out.println("[5] Extract vazio. Buscando redirecionamento...");
                 String redirectedTitle = fetchRedirectedTitle(formattedCountry);
 
                 if (redirectedTitle != null && !redirectedTitle.equalsIgnoreCase(country)) {
-                    System.out.println("[6] Redirecionando para: " + redirectedTitle);
-                    
+
                     return getCountrySummary(redirectedTitle);
                 } else {
-                    System.out.println("[7] Nenhum redirecionamento encontrado.");
                     return new WikipediaSummary(title, "Conteúdo não disponível.");
                 }
             }
 
             return new WikipediaSummary(title, extract);
-        
+
         } catch (Exception e) {
             System.err.println("[8] Erro ao obter dados da Wikipedia: " + e.getMessage());
             return new WikipediaSummary("Erro", "Não foi possível obter informações.");
@@ -73,11 +67,11 @@ public class WikipediaService {
     }
 
     public String fetchRedirectedTitle(String formattedCountry) {
-        URI uri = URI.create("https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvslots=main&rvprop=content&titles=" + formattedCountry + "&format=json");
+        URI uri = URI.create(
+                "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvslots=main&rvprop=content&titles="
+                        + formattedCountry + "&format=json");
         try {
-            System.out.println("[9] URL de revisions montada: " + uri);
             String jsonResponse = restTemplate.getForObject(uri, String.class);
-            System.out.println("[10] Resposta da API de revisões: " + jsonResponse);
 
             JsonNode root = objectMapper.readTree(jsonResponse);
             JsonNode pages = root.path("query").path("pages");
@@ -110,16 +104,3 @@ public class WikipediaService {
         return null;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,64 @@
+<!-- OVERLAY TELA CHEIA (ARTS-2) ABSOLUTO AO MODAL-CONTENT -->
+@if (selectedArt) {
+<div class="fullscreen-overlay fade-in" (click)="onClose()">
+    <div class="fullscreen-card" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="onClose()">✕</button>
+
+        <div class="image-section">
+            <img [src]="selectedArt.imageUrl" [alt]="selectedArt.title" class="fullscreen-img">
+        </div>
+
+        <div class="details-section">
+            <div class="details-header">
+                <h2>{{ selectedArt.title }}</h2>
+                <h3>{{ selectedArt.author && selectedArt.author !== 'Autor Desconhecido' ? selectedArt.author : 'Mestre
+                    Anônimo'
+                    }}</h3>
+            </div>
+
+            <div class="details-body">
+                <div class="info-group" *ngIf="selectedArt.date && selectedArt.date !== 'null'">
+                    <span class="label">Ano de Criação</span>
+                    <span class="value">{{ selectedArt.date }}</span>
+                </div>
+
+                <div class="tags-container" style="display: flex; flex-direction: column; gap: 32px;">
+                    <div class="info-group"
+                        *ngIf="selectedArt.style && !selectedArt.style.includes('não especificado')">
+                        <span class="label">Estilo / Movimento</span>
+                        <span class="value style"><span style="font-size: 1.2em; margin-right: 12px;">🎨</span> {{
+                            selectedArt.style
+                            }}</span>
+                    </div>
+
+                    <div class="info-group"
+                        *ngIf="selectedArt.historicalPeriod && !selectedArt.historicalPeriod.includes('não especificado')">
+                        <span class="label">Período Histórico</span>
+                        <span class="value period"><span style="font-size: 1.2em; margin-right: 12px;">🏛️</span> {{
+                            selectedArt.historicalPeriod }}</span>
+                    </div>
+
+                    <div class="info-group" *ngIf="selectedArt.city && !selectedArt.city.includes('não especificado')">
+                        <span class="label">Acervo Atual / Localização</span>
+                        <span class="value city"><span style="font-size: 1.2em; margin-right: 12px;">📍</span> {{
+                            selectedArt.city
+                            }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<!-- OVERLAY PARA IMAGENS BÁSICAS -->
+@if (selectedImage) {
+<div class="fullscreen-overlay fade-in" (click)="onClose()">
+    <div class="fullscreen-card basic" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="onClose()">✕</button>
+        <div class="image-section" style="flex: 1;">
+            <img [src]="selectedImage" class="fullscreen-img">
+        </div>
+    </div>
+</div>
+}

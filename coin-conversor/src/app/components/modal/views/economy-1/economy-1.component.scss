@@ -1,0 +1,26 @@
+@import '../../modal.component.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// Estilo específico do destaque de PIB
+.info-box {
+  margin-top: 30px;
+  background: rgba($accent, 0.1);
+  border: 1px solid rgba($accent, 0.3);
+  padding: 20px;
+  border-radius: 16px;
+  font-size: 1.5rem;
+  color: #fff;
+  display: inline-block;
+  
+  strong { color: $accent; margin-right: 10px; }
+}
+
+// Reusa a área de scroll do pai, mas pode customizar margens aqui
+.scroll-area {
+  margin-top: 20px;
+}

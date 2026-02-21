@@ -16,7 +16,7 @@ import { EventEmitter, Output } from '@angular/core';
 export class FlagListComponent implements OnInit, OnChanges {
 
   @ViewChildren(FlagItemComponent) flagItems!: QueryList<FlagItemComponent>;
-  
+
   @Output() closeModalEvent = new EventEmitter<void>();
 
   @Input() isExpanded = false;
@@ -25,13 +25,16 @@ export class FlagListComponent implements OnInit, OnChanges {
 
   @Output() flagsLoaded: EventEmitter<any[]> = new EventEmitter();
   errorMessage: string | null = null;
-  
+
   // Variáveis relacionadas ao Modal
   @Input() selectedFlag: { name: string; imageUrl: string } | null = null;
-  
+
   isModalOpen = false;
   countryInfo: any = null;
   economicInfo: any = null;
+  // AI generated variables for Geography and Art
+  geographyInfo: any = null;
+  artInfo: any = null;
   isDataLoaded = false;
 
   // Variáveis para pesquisa e filtragem
@@ -41,7 +44,7 @@ export class FlagListComponent implements OnInit, OnChanges {
   constructor(
     private flagService: FlagService,
     private wikipediaService: WikipediaService
-  ) {}
+  ) { }
 
   @Input() isDarkTheme = false;
 
@@ -65,6 +68,8 @@ export class FlagListComponent implements OnInit, OnChanges {
       // Resetar os dados antes de buscar
       this.countryInfo = null;
       this.economicInfo = null;
+      this.geographyInfo = null; // AI generated
+      this.artInfo = null; // AI generated
       this.isDataLoaded = false;
 
       // Buscar as informações da Wikipédia
@@ -78,11 +83,23 @@ export class FlagListComponent implements OnInit, OnChanges {
         this.economicInfo = economicData;
         this.checkDataLoaded();
       });
+
+      // AI generated: Buscar informações geográficas
+      this.wikipediaService.getGeographyInfo(flag.name).subscribe(geographyData => {
+        this.geographyInfo = geographyData;
+        this.checkDataLoaded();
+      });
+
+      // AI generated: Buscar informações de arte e cultura
+      this.wikipediaService.getArtInfo(flag.name).subscribe(artData => {
+        this.artInfo = artData;
+        this.checkDataLoaded();
+      });
     }
   }
 
   checkDataLoaded() {
-    if (this.countryInfo && this.economicInfo) {
+    if (this.countryInfo && this.economicInfo && this.geographyInfo && this.artInfo) {
       this.isDataLoaded = true;
     }
   }
@@ -128,16 +145,16 @@ export class FlagListComponent implements OnInit, OnChanges {
     if (changes['isDarkTheme']) {
       console.log('isDarkTheme atualizado:', this.isDarkTheme);
     }
-  
+
     if (changes['selectedFlag'] && changes['selectedFlag'].currentValue) {
       console.log('Bandeira selecionada na barra:', this.selectedFlag);
-  
+
       if (this.selectedFlag !== null) {
         setTimeout(() => {
           const selectedFlagItem = this.flagItems.find(item =>
             item.flag.name === this.selectedFlag!.name
           );
-  
+
           if (selectedFlagItem) {
             const event: MouseEvent = new MouseEvent('click');
             selectedFlagItem.onClick(event, selectedFlagItem);

@@ -1,1 +1,11 @@
-<p>economy-1 works!</p>
+<h1 class="modal-title">Economia Política</h1>
+
+<div class="scroll-area-expanded">
+  <p>{{ data?.content }}</p>
+  
+  @if (data?.gdp) {
+    <div class="info-box">
+       <strong>PIB:</strong> {{ data.gdp }}
+    </div>
+  }
+</div>

@@ -1,1 +1,157 @@
-<p>arts-1 works!</p>
+<!--<h2 class="modal-title">Galeria Histórica e Cultural</h2>
+
+<div class="art-gallery-expanded">
+
+  @if (groupedArtworks.length > 0) {
+
+  @for (group of groupedArtworks; track group.year) {
+  <div class="timeline-group" style="margin-bottom: 2rem;">
+    <h3 class="timeline-year"
+      style="font-size: 1.5rem; color: #fff; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+      {{ group.year }}
+    </h3>
+
+    <div class="timeline-artworks"
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+   
+      @for (art of group.works; track $index) {
+      <div class="art-item fade-in"
+        style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.2);">
+        <div class="art-img-wrapper" style="position: relative; width: 100%; height: 260px; overflow: hidden;">
+          <img [src]="art.imageUrl" [alt]="art.title" class="img-cover reveal-anim"
+            style="width: 100%; height: 100%; object-fit: cover;">
+          <div
+            style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); pointer-events: none;">
+          </div>
+
+          <div style="position: absolute; bottom: 12px; left: 16px; right: 16px;">
+            <h4 class="art-title"
+              style="margin: 0 0 4px 0; font-size: 1.2rem; font-weight: 700; color: #f9f9f9; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+              {{ art.title }}
+            </h4>
+            <p class="art-author" *ngIf="art.author !== 'null'"
+              style="margin: 0; font-size: 0.9rem; color: rgba(255,255,255,0.85); font-weight: 500;">
+              {{ art.author || 'Mestre Desconhecido' }}
+            </p>
+          </div>
+        </div>
+
+        <div class="art-details"
+          style="padding: 12px 16px; background: rgba(0,0,0,0.3); flex: 1; display: flex; flex-direction: column; justify-content: flex-start;">
+          <div class="art-tags" style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="art-tag style" *ngIf="art.style && art.style !== 'null'"
+              style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); color: #93c5fd; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase;">
+              {{ art.style }}
+            </span>
+            <span class="art-tag period" *ngIf="art.historicalPeriod && art.historicalPeriod !== 'null'"
+              style="background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.3); color: #d8b4fe; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase;">
+              {{ art.historicalPeriod }}
+            </span>
+            <span class="art-tag city" *ngIf="art.city && art.city !== 'null'"
+              style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e5e7eb; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 500; display: flex; align-items: center;">
+              📍 {{ art.city }}
+            </span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  }
+  }
+
+  @else if (flagData?.images && flagData.images.length > 0) {
+
+  @for (img of flagData.images; track $index) {
+  <div class="art-item basic">
+    <img [src]="img" class="img-cover" style="border-radius: 12px;">
+  </div>
+  }
+  }
+
+  @else {
+  <div class="empty-state mock-center"
+    style="grid-column: 1 / -1; padding: 3rem; text-align: center; color: rgba(255,255,255,0.5);">
+    <p style="font-size: 1.1rem;">Nenhum registro artístico e histórico pôde ser recuperado para esta região no momento.
+    </p>
+  </div>
+  }
+
+</div> -->
+
+<div class="gallery-wrapper">
+  <div class="gallery-header">
+    <h2 class="gallery-main-title">Acervo Histórico e Artístico</h2>
+    <p class="gallery-subtitle" *ngIf="data">Obras catalogadas da região de {{ data.country }}</p>
+  </div>
+
+  <div class="art-gallery-container">
+    @if (groupedArtworks.length > 0) {
+    @for (cluster of groupedArtworks; track cluster.clusterName) {
+    <div class="museum-section">
+
+      <div class="section-heading">
+        <h3 class="section-title">{{ cluster.clusterName }}</h3>
+        <div class="section-line"></div>
+        <span class="section-count">{{ cluster.works.length }} Obras</span>
+      </div>
+
+      <div class="museum-grid">
+        @for (art of cluster.works; track $index) {
+        <div class="museum-card-wrapper fade-in">
+          <div class="museum-card" (click)="openFullscreen(art)">
+            <div class="premium-badge" *ngIf="art.computedCentury || art.displayCategory">
+              {{ art.computedCentury || art.displayCategory }}
+            </div>
+
+            <img [src]="art.imageUrl" [alt]="art.title" loading="lazy" class="card-bg-image">
+            <div class="card-overlay"></div>
+
+            <div class="card-info-main">
+              <h4 class="art-title">{{ art.title }}</h4>
+              <p class="art-author">{{ art.author && art.author !== 'Autor Desconhecido' ? art.author : 'Mestre Anônimo'
+                }}</p>
+              <p class="art-year" *ngIf="art.date && art.date !== 'null'">{{ art.date }}</p>
+            </div>
+
+            <div class="details-drawer">
+              <div class="drawer-content">
+                <span class="detail-pill style" *ngIf="art.style && !art.style.includes('não especificado')">
+                  🎨 {{ art.style }}
+                </span>
+                <span class="detail-pill period"
+                  *ngIf="art.historicalPeriod && !art.historicalPeriod.includes('não especificado')">
+                  🏛️ {{ art.historicalPeriod }}
+                </span>
+                <span class="detail-pill city" *ngIf="art.city && !art.city.includes('não especificado')">
+                  📍 {{ art.city }}
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    }
+    } @else if (flagData?.images && flagData.images.length > 0) {
+    <div class="museum-grid">
+      @for (img of flagData.images; track $index) {
+      <div class="museum-card-wrapper basic fade-in">
+        <div class="museum-card basic" (click)="openFullscreenImage(img)">
+          <img [src]="img" loading="lazy" class="card-bg-image" alt="Registro Visual">
+        </div>
+      </div>
+      }
+    </div>
+    } @else {
+    <div class="empty-state">
+      <div class="empty-icon">🖼️</div>
+      <p>O acervo desta região ainda não foi catalogado digitalmente.</p>
+    </div>
+    }
+  </div>
+</div>
+
+<app-arts-2 [selectedArt]="selectedArt" [selectedImage]="selectedImage" (close)="closeFullscreen()"></app-arts-2>

@@ -1,0 +1,196 @@
+.fade-in {
+    animation: fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// FULLSCREEN OVERLAY CSS
+.fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+
+    .fullscreen-card {
+        position: relative;
+        width: 90vw;
+        max-width: 1400px;
+        height: 85vh;
+        background: rgba(15, 15, 20, 0.75);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.05);
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+
+        &.basic {
+            background: transparent;
+            backdrop-filter: none;
+            border: none;
+            box-shadow: none;
+        }
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+    }
+
+    .fullscreen-img {
+        flex: 2;
+        object-fit: contain;
+        background: #000;
+        width: 100%;
+        height: 100%;
+    }
+
+    .fullscreen-details {
+        flex: 1;
+        padding: 60px 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.4);
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+
+        .details-header {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+            h2 {
+                font-size: 2.6rem;
+                font-weight: 800;
+                color: #ffffff;
+                margin: 0 0 12px 0;
+                letter-spacing: -0.5px;
+                line-height: 1.1;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+                color: #94a3b8;
+                margin: 0;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+        }
+
+        .details-body {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            .info-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .label {
+                display: block;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                color: #64748b;
+                margin-bottom: 8px;
+                font-weight: 700;
+            }
+
+            .value {
+                font-size: 1.25rem;
+                color: #e2e8f0;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+
+                &.style {
+                    color: #93c5fd;
+                }
+
+                &.period {
+                    color: #d8b4fe;
+                }
+
+                &.city {
+                    color: #f8fafc;
+                }
+            }
+
+            .tags-container {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+        }
+    }
+
+    @media (max-width: 900px) {
+        padding: 10px;
+
+        .fullscreen-card {
+            flex-direction: column;
+            height: 95vh;
+        }
+
+        .fullscreen-img {
+            flex: 1;
+            height: 50%;
+        }
+
+        .fullscreen-details {
+            flex: none;
+            padding: 30px 20px;
+            justify-content: flex-start;
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            p {
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
